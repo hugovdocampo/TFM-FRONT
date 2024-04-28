@@ -25,13 +25,16 @@ jobs:
       run: npm run build --prod
       working-directory: "./TripPlanner/"
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: "./TripPlanner/"
+      uses: SonarSource/sonarcloud-github-action@master        
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_PROJECT_KEY: "iwvg-hugo_TFM-FRONT"
         SONAR_ORGANIZATION: "iwvg-hugo"
+      with:
+        projectBaseDir: "./"
+        args: >
+          -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+          -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
     - name: Slack WebHook
       if: always()
       uses: 8398a7/action-slack@v3
