@@ -19,8 +19,10 @@ jobs:
         node-version: '18'
     - name: Install dependencies
       run: npm install
+      working-directory: "./TripPlanner/"
     - name: Build
       run: npm run build 
+      working-directory: "./TripPlanner/"
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v1.2
       with:
