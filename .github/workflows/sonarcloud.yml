@@ -27,7 +27,7 @@ jobs:
       run: npm run build --prod
       working-directory: "./TripPlanner/"
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@masterv
+      uses: SonarSource/sonarcloud-github-action@master
       with:
         projectBaseDir: "./TripPlanner/"
       env:
