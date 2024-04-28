@@ -1,0 +1,39 @@
+name: Frontend CI
+on:
+  push:
+    branches:
+      - main
+      - '*-*[0-9]'
+  pull_request:
+    branches:
+      - main
+      - '*-*[0-9]'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: npm install
+    - name: Build
+      run: npm run build 
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v1.2
+      with:
+        projectBaseDir: "./TripPlanner/"
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+        SONAR_HOST_URL: "https://sonarcloud.io"
+        SONAR_PROJECT_KEY: "iwvg-hugo_TFM-FRONT"
+    - name: Slack WebHook
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: 'repo,author,commit,author,workflow'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
