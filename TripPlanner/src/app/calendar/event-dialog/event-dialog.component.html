@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{ data.event.title }}</h1>
+<div mat-dialog-content>
+  <p>Action: {{ data.action }}</p>
+  <p>Event Details:</p>
+  <pre>{{ data.event | json }}</pre>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>

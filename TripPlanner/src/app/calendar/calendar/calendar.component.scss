@@ -1,0 +1,91 @@
+
+:host {
+  display: block;
+  height: 100%;
+}
+@media (max-width: 768px) {
+  ::ng-deep .cal-open-day-events {
+    display: none;
+  }
+}
+
+/* Estilos para la barra de navegación del calendario */
+.calendar-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  color: #ffffff; 
+}
+
+.calendar-navigation .btn {
+  border: none;
+  background: none;
+  color: #ffffff;
+  margin: 0 15px;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 20px; /* Botones más redondeados */
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.calendar-navigation .btn:hover {
+  background-color: #365880; 
+  transform: scale(1.1); 
+}
+
+.calendar-navigation .current-month {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.material-icons {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* Estilos para el contenedor principal del calendario */
+.cal-container {
+  margin: 0.5vw 2vw 0.5vw 2vw;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+::ng-deep {
+  /* Estilos para los días del calendario */
+  .cal-cell {
+    border-radius: 8px; 
+    padding: 10px;
+    margin: 5px;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+  }
+
+  .cal-cell:hover {
+    background-color: #eef3f8; 
+  }
+
+  .cal-day-badge {
+    display: none !important;
+  }
+  .cal-month-view .cal-event {
+    width: 15px !important;
+    height: 10px !important;
+    border-radius: 5px !important;
+    display: inline-block !important;
+    margin: 3px !important;
+  }
+
+  .cal-open-day-events {
+    background-color: #97bce7 !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+    margin: 10px !important;
+    box-shadow: none !important;
+  }
+}

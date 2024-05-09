@@ -1,0 +1,18 @@
+<div class="cal-container">
+    <div class="calendar-navigation text-center">
+        <button class="btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+            <i class="material-icons">chevron_left</i>
+        </button>
+        <span class="current-month">{{ viewDate | date: 'MMMM y' }}</span>
+        <button class="btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+            <i class="material-icons">chevron_right</i>
+        </button>
+    </div>
+
+    <div [ngSwitch]="view">
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (dayHeaderClicked)="setView(CalendarView.Month)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+    </div>
+</div>
