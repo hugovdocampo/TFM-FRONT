@@ -1,0 +1,187 @@
+:host {
+  display: block;
+  padding: 20px;
+  background-color: #f0f4f8;
+  font-family: "Roboto", sans-serif;
+}
+
+.mat-tab-group {
+  width: 100%;
+  height: 100vh; 
+  display: block;
+}
+
+.mat-list {
+  overflow-y: auto;
+  flex-grow: 1; 
+}
+
+.expenses-container {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: calc(80vh - 100px);
+  overflow-y: auto;
+}
+
+.graficas, .payments-container {
+  margin-top: 40px;
+}
+
+.lista {
+  padding: 20px;
+}
+
+.chart-container {
+  height: 25vh;
+}
+
+.list-item-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-details {
+  flex-grow: 1;
+}
+
+.expense-title {
+  font-size: 16px;
+  color: #1976d2; 
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.expense-paid-by {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.expense-amount {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333; 
+}
+
+.pack-bajo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed; 
+  bottom: 0px;
+  z-index: 1000;
+}
+
+.elemento-lista {
+  height: fit-content !important;
+  margin-bottom: 12px !important;
+}
+
+.boton-add {
+  bottom: 50px;
+}
+
+.colores {
+  background: rgb(104, 174, 254);
+  z-index: 10000;
+  padding: 22px;
+  margin-left: -20px;
+}
+
+.total {
+  width: 40%;
+  text-align: center;
+  font-size: 16px;
+}
+
+.boton-pagar {
+  background: #1976d2;
+  color: white !important;
+  border-radius: 8px;
+  scale: 0.8;
+}
+
+.budget-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;  
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.circle-chart-container {
+  width: 150px;
+  height: 150px;
+}
+
+.budget-container {
+  flex-direction: row;
+}
+
+.spending-details {
+  flex-direction: column;
+  align-items: center;
+}
+
+.spent, .budget-amount, .days-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spent h3, .budget-amount h3, .days-left h3 {
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.spent{
+  margin-right: 20px;
+}
+
+.days-left mat-icon {
+  font-size: 24px;
+  color: #1976d2;
+  width: 100%;
+}
+
+.titulo {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+@media (max-width: 600px) {
+  .mat-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .expense-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pack-bajo {
+    width: 90%;
+  }
+
+  .total{
+    font-size: 14px
+  }
+
+  .circle-chart-container {
+    margin-bottom: 20px;
+  }
+}

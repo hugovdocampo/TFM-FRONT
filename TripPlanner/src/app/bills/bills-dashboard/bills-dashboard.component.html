@@ -1,0 +1,130 @@
+<mat-tab-group animationDuration="500ms">
+  <mat-tab label="Balances" class="tab-ancho">
+    <h3 class="titulo">Resumen de gastos</h3>
+    <div class="chart-container graficas">
+      <ngx-charts-bar-horizontal
+        [results]="chartData"
+        [xAxis]="false"
+        [yAxis]="true"
+        [gradient]="false"
+        [animations]="true"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [barPadding]="20"
+        xAxisLabel="Cantidad (€)"
+        yAxisLabel="Persona"
+        [customColors]="customColors"
+        [tooltipDisabled]="true"
+        [showDataLabel]="true"
+        [showGridLines]="true"
+        [roundEdges]="true"
+      >
+      </ngx-charts-bar-horizontal>
+    </div>
+
+    <div class="payments-container">
+      <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+        <ng-container matColumnDef="debtor">
+          <th mat-header-cell *matHeaderCellDef>Deudor</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.debtor }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditor">
+          <th mat-header-cell *matHeaderCellDef>Pagador</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.creditor }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.amount | currency : "EUR" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="paid">
+          <th mat-header-cell *matHeaderCellDef>Pagar</th>
+          <td mat-cell *matCellDef="let transaction">
+            <button
+              mat-icon-button
+              class="boton-pagar"
+              (click)="markAsPaid(transaction)"
+              aria-label="Mark as paid"
+            >
+              <mat-icon>check_circle</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <!-- Sección de Presupuesto -->
+    <h3 class="titulo">Mi presupuesto</h3>
+    <div class="budget-container">
+      <div class="circle-chart-container">
+        <ngx-charts-pie-chart
+          [results]="budgetData"
+          [doughnut]="true"
+          [arcWidth]="0.25"
+          [animations]="true">
+        </ngx-charts-pie-chart>
+      </div>
+      <div class="spending-details">
+        <div style="display: flex; flex-direction: row">
+          <div class="spent">
+            <p style="font-size: 16px; font-weight: bold;">Gastado</p>
+            <h3>{{ spentAmount | currency : "EUR" }}</h3>
+          </div>
+          <div class="budget-info">
+            <div class="budget-amount">
+              <p style="font-size: 16px; font-weight: bold;">Disponible</p>
+              <h3>{{ availableAmount | currency : "EUR" }}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="days-left">
+          <p style="font-size: 16px; font-weight: bold;">Días restantes</p>
+          <div style="display: flex; flex-direction: row;">
+            <mat-icon style="margin-right: 10px; font-size: 26px;">event</mat-icon>
+            <h3 style="font-size: 26px;" >{{ daysLeft }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Expenses">
+    <div class="expenses-container">
+      <mat-list class="lista">
+        <mat-list-item *ngFor="let expense of expenses" class="elemento-lista">
+          <div class="list-item-content">
+            <div class="expense-details">
+              <h3 class="expense-title">{{ expense.title }}</h3>
+              <p class="expense-paid-by">
+                Paid by <strong>{{ expense.paidBy }}</strong> on
+                {{ expense.date | date : "mediumDate" }}
+              </p>
+            </div>
+            <span class="expense-amount">{{
+              expense.amount | currency : "EUR"
+            }}</span>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <div class="pack-bajo colores">
+        <p class="total">TOTAL PAGADO POR MI: <strong>2000.00€</strong></p>
+        <div style="width: 20%; display: flex; justify-content: center">
+          <button
+            mat-fab
+            class="boton-add"
+            color="primary"
+            (click)="openAddExpenseDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <p class="total">TOTAL ACUMULADO: <strong>20000.00€</strong></p>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

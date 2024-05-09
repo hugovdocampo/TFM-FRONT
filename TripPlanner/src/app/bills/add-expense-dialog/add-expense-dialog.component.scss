@@ -1,0 +1,63 @@
+:host {
+    display: block;
+    padding: 20px;
+    background-color: #f0f4f8;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .mat-tab-group {
+    width: 100%;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .add-expense-button-container {
+    margin-bottom: 20px;
+    text-align: right;
+  }
+  
+  .mat-list-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  em {
+    font-style: italic;
+  }
+  
+  button.mat-raised-button {
+    background-color: #1976d2;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+  }
+  
+  @media (max-width: 600px) {
+    .mat-tab-group {
+      flex-direction: column;
+    }
+  
+    .expenses-container, .add-expense-button-container {
+      padding: 10px;
+    }
+  
+    button.mat-raised-button {
+      width: 100%;
+    }
+  }
+  

@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Add New Expense</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Paid By</mat-label>
+    <mat-select [(ngModel)]="paidBy">
+      <mat-option *ngFor="let person of data.people" [value]="person.name">{{ person.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Paid To</mat-label>
+    <mat-select [(ngModel)]="paidTo">
+      <mat-option *ngFor="let person of data.people" [value]="person.name">{{ person.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" [(ngModel)]="amount">
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="description"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onAddClick()" cdkFocusInitial>Add</button>
+</div>
