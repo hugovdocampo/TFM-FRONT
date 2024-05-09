@@ -1,4 +1,6 @@
+// app.component.ts
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TripPlanner';
+  
+  constructor(private router: Router) {}
+
+  goToDashboard() {
+    this.router.navigate(['/bills', 'dashboard']);  // Asegúrate de que coincida con la configuración de ruta
+  }
 }
