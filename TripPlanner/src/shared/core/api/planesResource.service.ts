@@ -282,9 +282,9 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public getPlan(id: number, observe?: 'body', reportProgress?: boolean): Observable<PlanDTO>;
-     public getPlan(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PlanDTO>>;
-     public getPlan(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PlanDTO>>;
+     public getPlan(id: number, observe?: 'body', reportProgress?: boolean): Observable<PlanDetalleDTO>;
+     public getPlan(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PlanDetalleDTO>>;
+     public getPlan(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PlanDetalleDTO>>;
      public getPlan(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (id === null || id === undefined) {

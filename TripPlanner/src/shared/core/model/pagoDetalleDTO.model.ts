@@ -1,6 +1,6 @@
 import { UsuarioDTO } from './usuarioDTO.model';
 
-export interface PagoDTO {
+export interface PagoDetalleDTO {
     id: number;
     total: number;
     pagador: UsuarioDTO;
