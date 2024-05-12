@@ -239,7 +239,8 @@
 
         for (let i = 1; i <= 10; i++) {
             const plan: PlanDetalleDTO = {
-                id: 1,
+                id: i,
+                viajeID: 1,
                 nombre: `Plan ${i}`,
                 valoracion: i,
                 horario: {
@@ -257,7 +258,6 @@
                     total: i * 100,
                     pagador: i,
                     deudores: [i + 1, i + 2],
-                    planID: 1
                 },
                 tickets: [
                     {
