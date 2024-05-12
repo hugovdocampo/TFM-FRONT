@@ -17,8 +17,7 @@
  
  import { Observable }                                        from 'rxjs';
  
- import { ViajeDTO } from '../model/viajeDTO.model';
- import { ViajeDetalleDTO } from '../model/viajeDetalleDTO.model';
+ import { TicketDTO } from '../model/ticketDTO.model';
  
  import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
  import { Configuration }                                     from '../configuration';
@@ -63,10 +62,10 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public createViaje(body: ViajeDTO, observe?: 'body', reportProgress?: boolean): Observable<number>;
-     public createViaje(body: ViajeDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-     public createViaje(body: ViajeDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-     public createViaje(body: ViajeDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+     public createTicket(body: TicketDTO, observe?: 'body', reportProgress?: boolean): Observable<number>;
+     public createTicket(body: TicketDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+     public createTicket(body: TicketDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+     public createTicket(body: TicketDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (body === null || body === undefined) {
              throw new Error('Required parameter body was null or undefined when calling create Tickets.');
@@ -111,10 +110,10 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public deleteViaje(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-     public deleteViaje(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-     public deleteViaje(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-     public deleteViaje(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+     public deleteTicket(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+     public deleteTicket(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+     public deleteTicket(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+     public deleteTicket(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (id === null || id === undefined) {
              throw new Error('Required parameter id was null or undefined when calling delete Tickets.');
@@ -152,9 +151,9 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public getAllTickets(filter?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ViajeDetalleDTO>>;
-     public getAllTickets(filter?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ViajeDetalleDTO>>>;
-     public getAllTickets(filter?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ViajeDetalleDTO>>>;
+     public getAllTickets(filter?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<TicketDTO>>;
+     public getAllTickets(filter?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TicketDTO>>>;
+     public getAllTickets(filter?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TicketDTO>>>;
      public getAllTickets(filter?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
  
@@ -179,7 +178,7 @@
          const consumes: string[] = [
          ];
  
-         return this.httpClient.request<Array<ViajeDetalleDTO>>('get',`${this.basePath}/api/tickets`,
+         return this.httpClient.request<Array<TicketDTO>>('get',`${this.basePath}/api/tickets`,
              {
                  params: queryParameters,
                  withCredentials: this.configuration.withCredentials,
@@ -197,9 +196,9 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public getAllTicketsByPlan(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ViajeDetalleDTO>>;
-     public getAllTicketsByPlan(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ViajeDetalleDTO>>>;
-     public getAllTicketsByPlan(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ViajeDetalleDTO>>>;
+     public getAllTicketsByPlan(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<TicketDTO>>;
+     public getAllTicketsByPlan(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TicketDTO>>>;
+     public getAllTicketsByPlan(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TicketDTO>>>;
      public getAllTicketsByPlan(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (id === null || id === undefined) {
@@ -222,7 +221,7 @@
          const consumes: string[] = [
          ];
  
-         return this.httpClient.request<Array<ViajeDetalleDTO>>('get',`${this.basePath}/api/tickets/plan/${encodeURIComponent(String(id))}`,
+         return this.httpClient.request<Array<TicketDTO>>('get',`${this.basePath}/api/tickets/plan/${encodeURIComponent(String(id))}`,
              {
                  withCredentials: this.configuration.withCredentials,
                  headers: headers,
@@ -239,10 +238,10 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public getViaje(id: number, observe?: 'body', reportProgress?: boolean): Observable<ViajeDTO>;
-     public getViaje(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ViajeDTO>>;
-     public getViaje(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ViajeDTO>>;
-     public getViaje(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+     public getTicket(id: number, observe?: 'body', reportProgress?: boolean): Observable<TicketDTO>;
+     public getTicket(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TicketDTO>>;
+     public getTicket(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TicketDTO>>;
+     public getTicket(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (id === null || id === undefined) {
              throw new Error('Required parameter id was null or undefined when calling getTickets.');
@@ -264,7 +263,7 @@
          const consumes: string[] = [
          ];
  
-         return this.httpClient.request<ViajeDTO>('get',`${this.basePath}/api/tickets/${encodeURIComponent(String(id))}`,
+         return this.httpClient.request<TicketDTO>('get',`${this.basePath}/api/tickets/${encodeURIComponent(String(id))}`,
              {
                  withCredentials: this.configuration.withCredentials,
                  headers: headers,
@@ -282,10 +281,10 @@
       * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
       * @param reportProgress flag to report request and response progress.
       */
-     public updateViaje(body: ViajeDTO, id: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
-     public updateViaje(body: ViajeDTO, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-     public updateViaje(body: ViajeDTO, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-     public updateViaje(body: ViajeDTO, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+     public updateTicket(body: TicketDTO, id: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+     public updateTicket(body: TicketDTO, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+     public updateTicket(body: TicketDTO, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+     public updateTicket(body: TicketDTO, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
  
          if (body === null || body === undefined) {
              throw new Error('Required parameter body was null or undefined when calling updateTickets.');

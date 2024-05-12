@@ -9,5 +9,5 @@ export * from './horarioDTO.model';
 export * from './usuarioDTO.model';
 export * from './viajeDetalleDTO.model';
 export * from './planDetalleDTO.model';
-export * from './ticketDTO.model';
+export * from './pagoDetalleDTO.model';
 
