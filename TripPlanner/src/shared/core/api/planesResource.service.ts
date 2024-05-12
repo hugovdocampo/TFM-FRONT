@@ -239,19 +239,13 @@
 
         for (let i = 1; i <= 10; i++) {
             const plan: PlanDetalleDTO = {
-                id: i,
+                id: 1,
                 nombre: `Plan ${i}`,
                 valoracion: i,
                 horario: {
                     id: i,
                     fechaInicio: new Date(),
                     fechaFin: new Date()
-                },
-                propuestaFinalista: {
-                    id: i,
-                    titulo: `Propuesta Finalista ${i}`,
-                    valoracion: i,
-                    viajeID: i
                 },
                 ubicacion: {
                     id: i,
@@ -262,7 +256,8 @@
                     id: i,
                     total: i * 100,
                     pagador: i,
-                    deudores: [i + 1, i + 2]
+                    deudores: [i + 1, i + 2],
+                    planID: 1
                 },
                 tickets: [
                     {
@@ -270,7 +265,7 @@
                         qr: `QR${i}`,
                         asiento: `Asiento ${i}`,
                         documento: `Documento ${i}`,
-                        planID: i
+                        planID: 1
                     }
                 ]
             };

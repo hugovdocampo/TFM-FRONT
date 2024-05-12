@@ -11,4 +11,5 @@ export interface PlanDetalleDTO {
     ubicacion?: UbicacionDTO;
     pago?: PagoDTO;
     tickets?: TicketDTO[];
+    planID: number;
 }
