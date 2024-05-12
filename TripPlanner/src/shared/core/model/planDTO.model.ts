@@ -11,4 +11,5 @@ export interface PlanDTO {
     propuestaFinalista?: PropuestaDTO;
     ubicacion?: UbicacionDTO;
     pago?: PagoDTO;
+    planID: number;
 }
