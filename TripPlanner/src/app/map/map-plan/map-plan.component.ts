@@ -1,32 +1,53 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import * as maplibregl from 'maplibre-gl';
-import { Map } from 'maplibre-gl';
+import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { Map, Marker, NavigationControl} from 'maplibre-gl';
 
 @Component({
   selector: 'app-map-plan',
   templateUrl: './map-plan.component.html',
   styleUrls: ['./map-plan.component.scss']
 })
-export class MapPlanComponent implements AfterViewInit, OnDestroy {
+export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  lat = 16.62662018;
-  lon = 49.2125578;
-  zoom = 14;
+  initialState = { lng: -3.66, lat: 40.5, zoom: 14 };
 
   map: Map | undefined;
+
+  markers: Marker[] = [];
+
+  NavigationOptions = {
+    showCompass: true,
+    showZoom: true,
+    visualizePitch: true
+  }
 
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
+  ngOnInit(): void {
+  }
+
   ngAfterViewInit(): void {
-    const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
 
     this.map = new Map({
       container: this.mapContainer.nativeElement,
-      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=YOUR_MAPTILER_API_KEY_HERE`,
-      center: [initialState.lng, initialState.lat],
-      zoom: initialState.zoom
+      style: `https://api.maptiler.com/maps/streets/style.json?key=Ke6yX0uzyu92hbElN1hl`,
+      center: [this.initialState.lng, this.initialState.lat],
+      zoom: this.initialState.zoom
     });
+
+    this.map.addControl(new NavigationControl(this.NavigationOptions), 'top-right');
+
+    this.markers.push(
+      new Marker({color: "#FF0000"})
+      .setLngLat([-6.09, 40.02])
+      .addTo(this.map)
+    );
+    this.markers.push(
+      new Marker({color: "#FF0000"})
+      .setLngLat([-3.6, 40.5])
+      .addTo(this.map)
+    );
+    console.log(this.markers);
   }
 
   ngOnDestroy() {
@@ -37,8 +58,8 @@ export class MapPlanComponent implements AfterViewInit, OnDestroy {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          this.lat = position.coords.latitude;
-          this.lon = position.coords.longitude;
+          this.initialState.lat = position.coords.latitude;
+          this.initialState.lng = position.coords.longitude;
         },
         (error) => {
           console.error('Error obteniendo la ubicación', error);
