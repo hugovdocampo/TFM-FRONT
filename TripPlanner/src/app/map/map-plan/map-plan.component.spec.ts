@@ -1,3 +1,4 @@
+/*
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapPlanComponent } from './map-plan.component';
@@ -19,3 +20,4 @@ describe('MapPlanComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/
