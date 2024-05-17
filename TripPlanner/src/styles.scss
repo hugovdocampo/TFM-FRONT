@@ -1,7 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-  
+/* Colores tema aplicación: */
+$raisin-black: #272727ff;
+$mustard: #fed766ff;
+$moonstone: #009fb7ff;
+$dim-gray: #696773ff;
+$antiflash-white: #eff1f3ff;
