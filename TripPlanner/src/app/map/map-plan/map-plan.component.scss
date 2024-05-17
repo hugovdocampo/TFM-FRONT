@@ -24,3 +24,42 @@
   cursor: pointer;
   padding: 0;
 }
+
+.map-tools {
+  font-size: small;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.plan-list-container {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.toggle-btn {
+  display: flex;
+  label{
+    margin-left: 5px;
+    font-size: medium;
+  }
+  p{
+    margin: 0;
+  }
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+mat-list-option {
+  span, p{
+    display: inline;
+    align-items: center;
+  }
+}

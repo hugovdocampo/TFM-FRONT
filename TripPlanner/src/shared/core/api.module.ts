@@ -2,10 +2,10 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { ViajesResourceService } from './api/viajesResource.service';
+import { ViajesResourceService } from './api/viajesResource.sevice';
 import { PlanesResourceService } from './api/planesResource.service';
-import { PropuestasResourceService } from './api/propuestasResource.service';
-import { TicketsResourceService } from './api/ticketsResource.service';
+import { PropuestasResourceService } from './api/propuestaResource.service';
+import { TicketsResourceService } from './api/ticketsResouce.service';
 import { PagosResourceService } from './api/pagosResource.service';
 
 @NgModule({

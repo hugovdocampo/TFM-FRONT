@@ -6,7 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Map, Marker, NavigationControl, Offset, Popup } from 'maplibre-gl';
+import { MatSelectionList } from '@angular/material/list';
+import { Map as MapLibre, Marker, NavigationControl, Popup } from 'maplibre-gl';
+import { PlanesResourceService } from 'src/shared/core/api/planesResource.service';
+import { PlanDetalleDTO } from 'src/shared/core/model/planDetalleDTO.model';
 
 @Component({
   selector: 'app-map-plan',
@@ -16,9 +19,16 @@ import { Map, Marker, NavigationControl, Offset, Popup } from 'maplibre-gl';
 export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   initialState = { lng: -3.66, lat: 40.5, zoom: 14 };
 
-  map: Map | undefined;
+  map: MapLibre | undefined;
 
   markers: Marker[] = [];
+
+  planesOrderByDate: Map<string, { color: string; planes: PlanDetalleDTO[] }> =
+    new Map();
+
+  selectedOptions: any[] = [];
+
+  allSelected = true;
 
   NavigationOptions = {
     showCompass: true,
@@ -29,58 +39,43 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
-  ngOnInit(): void {}
+  @ViewChild('dias') dias!: MatSelectionList;
+
+  ngOnInit(): void {
+    this._planesReource.getAllPlanesByViaje(1).subscribe((planes) => {
+      this.planesOrderByDate = this.organizarPlanesPorFecha(planes);
+      this.selectedOptions = Array.from(this.planesOrderByDate.values());
+    });
+  }
+
+  constructor(private _planesReource: PlanesResourceService) {}
 
   ngAfterViewInit(): void {
-    this.map = new Map({
+    let map = (this.map = new MapLibre({
       container: this.mapContainer.nativeElement,
       style: `https://api.maptiler.com/maps/streets/style.json?key=Ke6yX0uzyu92hbElN1hl`,
       center: [this.initialState.lng, this.initialState.lat],
       zoom: this.initialState.zoom,
-    });
+    }));
 
     this.map.addControl(
       new NavigationControl(this.NavigationOptions),
       'top-right'
     );
 
-    this.markers.push(
-      new Marker({ color: '#FF0000' }).setLngLat([-6.09, 40.02]).addTo(this.map)
-    );
-    this.markers.push(
-      new Marker({ color: '#FF0000' }).setLngLat([-3.66, 40.5]).addTo(this.map)
-    );
-    console.log(this.markers);
-    const map2 = this.map;
-
-    let markerHeight = 50,
-      markerRadius = 10,
-      linearOffset = 25;
-    let popupOffsets = {
-      top: [0, 0],
-      'top-left': [0, 0],
-      'top-right': [0, 0],
-      bottom: [0, -markerHeight],
-      'bottom-left': [
-        linearOffset,
-        (markerHeight - markerRadius + linearOffset) * -1,
-      ],
-      'bottom-right': [
-        -linearOffset,
-        (markerHeight - markerRadius + linearOffset) * -1,
-      ],
-      left: [markerRadius, (markerHeight - markerRadius) * -1],
-      right: [-markerRadius, (markerHeight - markerRadius) * -1],
-    };
-    let popup = new Popup({ className: 'my-class' })
-      .setLngLat([-3.66, 40.501])
-      .setHTML('<h1>Hello World!</h1>')
-      .setMaxWidth('300px')
-      .addTo(this.map);
+    this.onSelectionChange(this.selectedOptions);
   }
 
   ngOnDestroy() {
     this.map?.remove();
+  }
+
+  toggleAllSelection(checked: boolean) {
+    if (checked) {
+      this.dias.selectAll();
+    } else {
+      this.dias.deselectAll();
+    }
   }
 
   getUserLocation(): void {
@@ -98,4 +93,110 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
       console.error('Geolocalización no soportada por este navegador.');
     }
   }
+
+  organizarPlanesPorFecha(
+    planes: PlanDetalleDTO[]
+  ): Map<string, { color: string; planes: PlanDetalleDTO[] }> {
+    const map = new Map<string, { color: string; planes: PlanDetalleDTO[] }>();
+
+    planes.forEach((plan) => {
+      if (plan.horario && plan.horario.fechaInicio) {
+        const fechaInicio = this.dateToSring(plan.horario.fechaInicio);
+
+        if (!map.has(fechaInicio)) {
+          map.set(fechaInicio, {
+            color:
+              map.size < this.colorArray.length
+                ? this.colorArray[map.size]
+                : this.getRandomColor(map),
+            planes: [],
+          });
+        }
+
+        map.get(fechaInicio)?.planes.push(plan);
+      }
+    });
+
+    return map;
+  }
+
+  dateToSring(date: Date): string {
+    return date.toISOString().split('T')[0];
+  }
+
+  getRandomColor(
+    map: Map<string, { color: string; planes: PlanDetalleDTO[] }>
+  ): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    const usedColors = Array.from(map.values()).map((value) => value.color);
+    while (usedColors.includes(color)) {
+      color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+    }
+
+    return color;
+  }
+
+  onSelectionChange(selectedOptions: any): void {
+    this.markers.forEach((marker) => marker.remove());
+    this.markers = [];
+
+    this.allSelected = selectedOptions.length === this.planesOrderByDate.size
+
+    selectedOptions.forEach((day: any) => {
+      if (day) {
+        day.planes.forEach((plan: any) => {
+          if (!plan.ubicacion?.coordenadas) return;
+          this.markers.push(
+            new Marker({ color: day?.color })
+              .setLngLat(plan.ubicacion.coordenadas)
+              .addTo(this.map!)
+              .setPopup(
+                new Popup().setHTML(
+                  `<h1>${plan.nombre}</h1><p>${plan.descripcion}</p>`
+                )
+              )
+          );
+        });
+      }
+    });
+  }
+
+  private colorArray = [
+    '#FF6633',
+    '#FF33FF',
+    '#00B3E6',
+    '#3366E6',
+    '#B34D4D',
+    '#80B300',
+    '#809900',
+    '#6680B3',
+    '#66991A',
+    '#FF1A66',
+    '#E6331A',
+    '#33FFCC',
+    '#66994D',
+    '#4D8000',
+    '#B33300',
+    '#CC80CC',
+    '#66664D',
+    '#991AFF',
+    '#4DB3FF',
+    '#1AB399',
+    '#E666B3',
+    '#33991A',
+    '#CC9999',
+    '#B3B31A',
+    '#00E680',
+    '#4D8066',
+    '#4D80CC',
+    '#9900B3',
+    '#E64D66',
+    '#4DB380',
+    '#FF4D4D',
+    '#6666FF',
+  ];
 }

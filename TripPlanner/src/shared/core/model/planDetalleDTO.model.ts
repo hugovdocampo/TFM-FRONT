@@ -6,6 +6,7 @@ import { UbicacionDTO } from "./ubicacionDTO.model";
 export interface PlanDetalleDTO {
     id: number;
     nombre: string;
+    descripcion?: string;
     valoracion: number;
     horario?: HorarioDTO;
     ubicacion?: UbicacionDTO;
