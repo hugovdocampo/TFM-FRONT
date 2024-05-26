@@ -1,8 +1,7 @@
 export interface UbicacionDTO {
-    id: number;
     direccion: string;
     coordenadas: [number, number];
-    esExteriror: boolean;
+    esExterior: boolean;
     tipoDeVestimenta?: string;
     requisitosDeAcceso?: string;
 }

@@ -1,0 +1,32 @@
+<form [formGroup]="horarioForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Día de inicio</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="diaInicio">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Hora de inicio</mat-label>
+      <input matInput type="time" formControlName="horaInicio">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Día de fin</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="diaFin">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="horarioForm.get('diaFin')?.hasError('invalid')">
+        La fecha de fin debe ser posterior a la fecha de inicio
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Hora de fin</mat-label>
+      <input matInput type="time" formControlName="horaFin">
+      <mat-error *ngIf="horarioForm.get('horaFin')?.hasError('invalid')">
+        La hora de fin debe ser posterior a la hora de inicio
+      </mat-error>
+    </mat-form-field>
+</form>
+  

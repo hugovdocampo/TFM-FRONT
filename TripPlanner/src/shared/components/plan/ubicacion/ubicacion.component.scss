@@ -1,0 +1,34 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.mat-chip-row {
+  margin: 4px !important;
+  padding: 0 8px;
+  background-color: #009fb7ff !important;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  color: white !important;
+  font-weight: 400 !important;
+}
+
+.mat-chip-remove {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.mat-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mat-chip-input {
+  min-width: 150px;
+}
+
+.mat-checkbox {
+  margin-bottom: 8px;
+}

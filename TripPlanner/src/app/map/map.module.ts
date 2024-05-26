@@ -8,22 +8,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { PlanComponent } from 'src/shared/components/plan/plan.component';
 
 
 
 @NgModule({
-  declarations: [
-    MapPlanComponent
-  ],
-  imports: [
-    CommonModule,
-    MaprRoutingModule,
-    NgxMapLibreGLModule,
-    MaterialModule,
-    MatFormFieldModule,
-    MatInputModule,
-    SharedModule,
-    FormsModule
-  ]
+    declarations: [
+        MapPlanComponent
+    ],
+    imports: [
+        CommonModule,
+        MaprRoutingModule,
+        NgxMapLibreGLModule,
+        MaterialModule,
+        MatFormFieldModule,
+        MatInputModule,
+        SharedModule,
+        FormsModule,
+        PlanComponent
+    ]
 })
 export class MapModule { }

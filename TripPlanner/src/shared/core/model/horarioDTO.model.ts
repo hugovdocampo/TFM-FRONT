@@ -1,5 +1,6 @@
 export interface HorarioDTO {
-    id: number;
-    fechaInicio: Date;
-    fechaFin: Date;
+    diaInicio: string | null;
+    horaInicio: string | null;
+    diaFin: string | null;
+    horaFin: string | null;
 }

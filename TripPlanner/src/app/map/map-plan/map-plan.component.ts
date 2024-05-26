@@ -6,8 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
 import { Map as MapLibre, Marker, NavigationControl, Popup } from 'maplibre-gl';
+import { PlanComponent } from 'src/shared/components/plan/plan.component';
 import { PlanesResourceService } from 'src/shared/core/api/planesResource.service';
 import { PlanDetalleDTO } from 'src/shared/core/model/planDetalleDTO.model';
 
@@ -22,6 +24,8 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   map: MapLibre | undefined;
 
   markers: Marker[] = [];
+
+  showPlan = true;
 
   planesOrderByDate: Map<string, { color: string; planes: PlanDetalleDTO[] }> =
     new Map();
@@ -48,7 +52,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  constructor(private _planesReource: PlanesResourceService) {}
+  constructor(private _planesReource: PlanesResourceService, public dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
     let map = (this.map = new MapLibre({
@@ -100,8 +104,8 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
     const map = new Map<string, { color: string; planes: PlanDetalleDTO[] }>();
 
     planes.forEach((plan) => {
-      if (plan.horario && plan.horario.fechaInicio) {
-        const fechaInicio = this.dateToSring(plan.horario.fechaInicio);
+      if (plan.horario && plan.horario.diaInicio) {
+        const fechaInicio = plan.horario.diaInicio;
 
         if (!map.has(fechaInicio)) {
           map.set(fechaInicio, {
@@ -143,22 +147,30 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   onSelectionChange(selectedOptions: any): void {
     this.markers.forEach((marker) => marker.remove());
     this.markers = [];
-
+    
     this.allSelected = selectedOptions.length === this.planesOrderByDate.size
 
     selectedOptions.forEach((day: any) => {
       if (day) {
         day.planes.forEach((plan: any) => {
           if (!plan.ubicacion?.coordenadas) return;
+          const name = 'abc';
+          const innerHtmlContent = `<h1>${plan.nombre}</h1><p>${plan.descripcion}</p>`;
+          const divElement = document.createElement('div');
+          const assignBtn = document.createElement('div');
+          assignBtn.innerHTML = `<button class="btn btn-success btn-simple text-white">Ver detalle</button>`;
+          divElement.innerHTML = innerHtmlContent;
+          divElement.appendChild(assignBtn);
+          // btn.className = 'btn';
+          assignBtn.addEventListener('click', (e) => {
+            //this.plan.loadForm(plan);
+            this.dialog.open(PlanComponent, {data: plan});
+          });
           this.markers.push(
             new Marker({ color: day?.color })
               .setLngLat(plan.ubicacion.coordenadas)
               .addTo(this.map!)
-              .setPopup(
-                new Popup().setHTML(
-                  `<h1>${plan.nombre}</h1><p>${plan.descripcion}</p>`
-                )
-              )
+              .setPopup(new Popup().setDOMContent(divElement))
           );
         });
       }
