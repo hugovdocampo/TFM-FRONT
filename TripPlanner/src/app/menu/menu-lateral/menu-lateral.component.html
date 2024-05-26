@@ -8,16 +8,16 @@
       <span class="app-title">TripPlanner</span>
     </div>
   </div>
-  <div>
+  <div class="derecha">
     <select class="language">
       <option value="es">ES</option>
       <option value="en">EN</option>
     </select>
-    <mat-icon class="boton-menu">person_ou</mat-icon>
+    <mat-icon class="boton-pers">person_ou</mat-icon>
   </div>
 </header>
 
-<mat-drawer-container autosize>
+<mat-drawer-container autosize class="main-content">
   <mat-drawer #drawer mode="side" disableClose="true" opened="true">
     <mat-nav-list *ngIf="isExpanded">
       <a ngClass="opcion-menu" *ngFor="let link of links" routerLink="{{ link.url }}" routerLinkActive="active">

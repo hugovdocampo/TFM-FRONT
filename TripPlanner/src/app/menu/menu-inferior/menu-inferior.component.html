@@ -1,0 +1,25 @@
+<header style="display: flex; justify-content: space-between; align-items: center; background-color: white; padding: 10px 20px;">
+    <div style="display: flex; align-items: center;">
+      <div class="cabecera-titulo">
+        <img src="../../../assets/main_logo.png" alt="Logo" class="app-logo">
+        <span class="app-title">TripPlanner</span>
+      </div>
+    </div>
+    <div class="derecha">
+      <mat-icon class="boton-menu">person_ou</mat-icon>
+    </div>
+  </header>
+
+<mat-tab-group mat-stretch-tabs class="bottom-nav menu-inferior">
+<mat-tab *ngFor="let link of links">
+    <ng-template mat-tab-label>
+    <div (click)="navigate(link.url)">
+        <mat-icon class="icono">{{ link.icon }}</mat-icon>
+    </div>
+    </ng-template>
+</mat-tab>
+</mat-tab-group>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>

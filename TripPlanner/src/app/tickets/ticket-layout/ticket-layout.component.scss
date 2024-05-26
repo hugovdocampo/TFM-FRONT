@@ -1,0 +1,163 @@
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-height: 80vh;
+
+  .event-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #696773ff;
+  }
+
+  .ubicacion {
+    font-size: 1em;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    color: rgb(124, 136, 194);
+    margin-top: 12px;
+    mat-icon {
+      font-size: 18px;
+      margin-right: 0;
+      margin-bottom: -4px;
+    }
+  }
+
+  .fechas {
+    margin-top: 2px;
+    color: rgb(138, 148, 198);
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  &.mobile {
+    margin: 10px;
+  }
+
+  &.desktop {
+    max-width: 800px;
+    max-height: 90vh;
+    margin: auto;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ticket-banner {
+    height: 120px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ticket-info {
+    padding: 20px;
+    flex-grow: 1;
+    height: 70vh;
+
+    .event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .category-chip {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        mat-icon {
+          margin-right: 5px;
+          margin-top: 4px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .chip {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .event-details {
+      display: flex;
+      flex-direction: column;
+
+      &.desktop-layout {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .event-location-time {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          margin-bottom: 5px;
+        }
+      }
+
+      .event-description {
+        flex-grow: 1;
+        text-align: justify;
+        height: 25vh;
+        overflow-y: auto;
+        a {
+          cursor: pointer;
+        }
+        .more {
+          cursor: pointer;
+          transition: transform 0.3s;
+          display: flex;
+          width: 100%;
+          align-content: flex-end;
+          justify-content: center;
+        }
+
+        .more:hover {
+          color: #009fb7ff; /* Cambia al color principal para indicar interactividad */
+        }
+      }
+    }
+
+    .qr-code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 25px;
+      img {
+        width: 12vw;
+        height: auto;
+      }
+    }
+
+    .qr-code-mobile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      img {
+        width: 35vw;
+        height: auto;
+      }
+    }
+
+    hr {
+      margin-top: 20px;
+    }
+
+    .enjoy-message {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
