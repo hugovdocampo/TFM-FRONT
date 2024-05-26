@@ -10,6 +10,7 @@ import { MenuModule } from './menu/menu.module';
 import { SharedModule } from '../shared/shared.module';
 import { CalendarModuleR } from './calendar/calendar.module';
 import { MapModule } from './map/map.module';
+import { TicketsModule } from './tickets/tickets.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { MapModule } from './map/map.module';
     MenuModule,
     SharedModule,
     CalendarModuleR,
-    MapModule
+    MapModule,
+    TicketsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

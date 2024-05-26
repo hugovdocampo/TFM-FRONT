@@ -1,2 +1,5 @@
-<app-menu-lateral></app-menu-lateral>
+<app-menu-lateral *ngIf="isDesktop; else mobileMenu"></app-menu-lateral>
+<ng-template #mobileMenu>
+  <app-menu-inferior></app-menu-inferior>
+</ng-template>
 <router-outlet></router-outlet>

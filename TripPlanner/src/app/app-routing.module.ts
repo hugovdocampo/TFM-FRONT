@@ -20,6 +20,11 @@ const routes: Routes = [
     path: 'map',
     loadChildren: () => import('./map/map.module').then((m) => m.MapModule),
   },
+  {
+    path: 'tickets',
+    loadChildren: () =>
+      import('./tickets/tickets.module').then((m) => m.TicketsModule),
+  },
 ];
 
 @NgModule({
