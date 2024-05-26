@@ -1,10 +1,17 @@
-<mgl-map
-  [style]="
-    'https://api.maptiler.com/maps/streets/style.json?key=Ke6yX0uzyu92hbElN1hl'
-  "
-  [zoom]="[zoom]"
-  [center]="[lon, lat]"
->
-  <mgl-marker [lngLat]="[16.62662018, 49.2125578]"></mgl-marker>
-  <mgl-control mglNavigation position="top-left"></mgl-control>
-</mgl-map>
+<div class="map-wrap">
+  <div class="map" #map>
+    <div class="map-tools">
+        <div class="toggle-btn">
+          <p><mat-slide-toggle id="toggle" #toggle [(ngModel)]="allSelected" (change)="toggleAllSelection($event.checked)"></mat-slide-toggle></p>
+          <label for="toggle">Todos los días</label>
+        </div>
+        <div class="plan-list-container">
+          <mat-selection-list #dias class="plan-list" #allSeleceted [(ngModel)]="selectedOptions" (ngModelChange)="onSelectionChange($event)">
+            <mat-list-option *ngFor="let item of planesOrderByDate | keyvalue" [value]='item.value'>
+              <p [style.color]='item.value.color'>{{item.key}}</p>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+    </div>
+  </div>
+</div>

@@ -242,15 +242,17 @@
                 id: i,
                 viajeID: 1,
                 nombre: `Plan ${i}`,
+                descripcion: `Descripción ${i}`,
                 valoracion: i,
                 horario: {
                     id: i,
-                    fechaInicio: new Date(),
-                    fechaFin: new Date()
+                    fechaInicio: new Date(`${i}/1/2024`),
+                    fechaFin: new Date(`${i}/1/2024`)
                 },
                 ubicacion: {
                     id: i,
                     direccion: `Dirección ${i}`,
+                    coordenadas: [-3.66+i/100, 40.5],
                     esExteriror: i % 2 === 0 ? true : false
                 },
                 pago: {
