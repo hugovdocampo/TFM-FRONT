@@ -1,0 +1,38 @@
+<mat-form [formGroup]="ubicacionForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Direccion</mat-label>
+      <input matInput type="text" placeholder="Calle..." formControlName="direccion">
+    </mat-form-field>
+  
+    <mat-checkbox class="mat-checkbox" formControlName="esExterior">Exterior</mat-checkbox>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Vestimenta</mat-label>
+      <input matInput type="text" placeholder="Ejemplo: No se permiten zapatillas" formControlName="tipoDeVestimenta">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Requisitos</mat-label>
+      <mat-chip-grid #chipGrid class="mat-chip-grid" aria-label="Enter requisitos">
+        <mat-chip-row
+            class="mat-chip-row"
+          *ngFor="let requisito of requisitos"
+          (removed)="remove(requisito)"
+          [editable]="true"
+          (edited)="edit(requisito, $event)"
+          [aria-description]="'press enter to edit ' + requisito">
+          {{ requisito }}
+          <button matChipRemove class="mat-chip-remove" [attr.aria-label]="'remove ' + requisito">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input matInput placeholder="New requisito..."
+               [matChipInputFor]="chipGrid"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               class="mat-chip-input"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-grid>
+    </mat-form-field>
+  </mat-form>
+  

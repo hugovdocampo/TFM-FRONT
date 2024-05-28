@@ -245,21 +245,22 @@
                 descripcion: `Descripción ${i}`,
                 valoracion: i,
                 horario: {
-                    id: i,
-                    fechaInicio: new Date(`${i}/1/2024`),
-                    fechaFin: new Date(`${i}/1/2024`)
+                    diaInicio: `${i}/1/2024`,
+                    horaInicio: `00:00`,
+                    diaFin: `${i}/1/2024`,
+                    horaFin: `01:00`
                 },
                 ubicacion: {
-                    id: i,
                     direccion: `Dirección ${i}`,
                     coordenadas: [-3.66+i/100, 40.5],
-                    esExteriror: i % 2 === 0 ? true : false
+                    esExterior: true,
+                    tipoDeVestimenta: `Vestimenta ${i}`,
                 },
                 pago: {
                     id: i,
                     total: i * 100,
-                    pagador: i,
-                    deudores: [i + 1, i + 2],
+                    idPagador: i,
+                    idDeudores: [i + 1, i + 2],
                 },
                 tickets: [
                     {

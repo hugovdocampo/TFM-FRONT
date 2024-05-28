@@ -200,9 +200,10 @@
                 id: i,
                 nombre: `Viaje ${i}`,
                 horario: {
-                    id: i,
-                    fechaInicio: new Date(),
-                    fechaFin: new Date()
+                    diaInicio: `${i}/1/2024`,
+                    horaInicio: `${i}:00`,
+                    diaFin: `${i}/1/2024`,
+                    horaFin: `${i+1}:00`
                 },
                 propuestaFinalista: {
                     id: i,

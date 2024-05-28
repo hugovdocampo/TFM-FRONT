@@ -1,0 +1,13 @@
+.star-rating {
+  display: flex;
+  cursor: pointer;
+
+  .star {
+    font-size: 24px;
+    color: #FFD700; // Color dorado para las estrellas
+
+    &.filled {
+      color: #FFD700;
+    }
+  }
+}
