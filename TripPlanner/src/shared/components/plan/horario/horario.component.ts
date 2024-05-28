@@ -117,9 +117,10 @@ export class HorarioComponent {
   loadForm(horario: HorarioDTO | undefined) {
     if (horario) {
       let horarioFormatted = {
-        ...horario,
         diaInicio: horario.diaInicio ? new Date(horario.diaInicio) : null,
+        horaInicio: horario.horaInicio,
         diaFin: horario.diaFin ? new Date(horario.diaFin) : null,
+        horaFin: horario.horaFin,
       };
       this.horarioForm.enable({ emitEvent: false });
       this.horarioForm.patchValue(horarioFormatted, { emitEvent: false });

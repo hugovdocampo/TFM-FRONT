@@ -45,6 +45,7 @@
 
 .toggle-btn {
   display: flex;
+
   label{
     margin-left: 5px;
     font-size: medium;
@@ -61,5 +62,6 @@ mat-list-option {
   span, p{
     display: inline;
     align-items: center;
+    font-size: medium;
   }
 }

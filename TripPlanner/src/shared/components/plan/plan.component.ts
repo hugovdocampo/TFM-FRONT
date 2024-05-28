@@ -87,7 +87,6 @@ export class PlanComponent implements AfterViewInit {
       if (tipo === 'pago') this.planDetalleDTO.pago = data;
       if (tipo === 'valoracion') this.planDetalleDTO.valoracion = data;
     }
-    console.log(tipo, this.planDetalleDTO);
   }
   
 }

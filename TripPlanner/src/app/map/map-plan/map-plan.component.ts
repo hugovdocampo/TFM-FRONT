@@ -154,11 +154,10 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
       if (day) {
         day.planes.forEach((plan: any) => {
           if (!plan.ubicacion?.coordenadas) return;
-          const name = 'abc';
           const innerHtmlContent = `<h1>${plan.nombre}</h1><p>${plan.descripcion}</p>`;
           const divElement = document.createElement('div');
           const assignBtn = document.createElement('div');
-          assignBtn.innerHTML = `<button class="btn btn-success btn-simple text-white">Ver detalle</button>`;
+          assignBtn.innerHTML = `<button class="save-button">Ver detalle</button><style>.save-button {background-color: #009fb7ff; border: none; border-radius: 4px; color: white; padding: 4px 8px; text-align: center; text-decoration: none; display: inline-block; cursor: pointer;}</style>`;
           divElement.innerHTML = innerHtmlContent;
           divElement.appendChild(assignBtn);
           // btn.className = 'btn';

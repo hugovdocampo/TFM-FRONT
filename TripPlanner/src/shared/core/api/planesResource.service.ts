@@ -246,9 +246,9 @@
                 valoracion: i,
                 horario: {
                     diaInicio: `${i}/1/2024`,
-                    horaInicio: `${i}:00`,
+                    horaInicio: `00:00`,
                     diaFin: `${i}/1/2024`,
-                    horaFin: `${i+1}:00`
+                    horaFin: `01:00`
                 },
                 ubicacion: {
                     direccion: `Dirección ${i}`,

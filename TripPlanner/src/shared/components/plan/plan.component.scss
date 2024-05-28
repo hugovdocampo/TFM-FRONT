@@ -11,8 +11,13 @@ body {
   color: #b9b9b9;
   background-color: #e3e3e3;
 }
-h4 {
-  color: #f0a500;
+h5 {
+  color: black;
+  border: solid #fed766ff;
+  border-width: 1px 3px 1px 3px;
+  border-radius: 4px 0px 4px 0px;
+  padding: 4px;
+  width: max-content;
 }
 input,
 input[type="radio"] + label,
@@ -173,9 +178,7 @@ select option {
 }
 .container {
   max-width: 38em;
-  padding: 2em;
-  padding-top: 1em;
-  padding-bottom: 0em;
+  padding: 0 1.5rem;
   margin: 0em auto;
   background-color: #fff;
   border-radius: 4.2px;
@@ -255,15 +258,16 @@ mat-form-field {
   margin-bottom: 1rem;
 }
 
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em;
-
-  h2{
-    margin-bottom: 0;
+  padding: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 0;
+  margin: 0;
+  h2, h3 {
+    margin: 0;
   }
 }
 

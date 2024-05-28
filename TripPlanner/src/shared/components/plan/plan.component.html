@@ -1,6 +1,6 @@
 <div class="dialog">
     <div mat-dialog-title class="header">
-        <h2>Detalle del Plan</h2>
+        <h3>Detalle del Plan</h3>
         <button mat-icon-button class="close-button" (click)="cancelar()">
           <mat-icon>close</mat-icon>
         </button>
@@ -9,7 +9,7 @@
         <div class="container">
             <mat-form [formGroup]="planForm">
                 <div class="row datos-generales">
-                  <h4>Datos Generales</h4>
+                  <h5>Datos Generales</h5>
                   <mat-form-field class="example-full-width">
                       <mat-label>Nombre</mat-label>
                       <input matInput formControlName="nombre">
