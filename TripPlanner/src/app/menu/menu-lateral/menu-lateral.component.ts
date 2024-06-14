@@ -18,6 +18,8 @@ export class MenuLateralComponent {
     { url: '/bills', label: 'Bills', icon: 'receipt' },
     { url: '/calendar', label: 'Calendar', icon: 'calendar_today' },
     { url: '/tickets', label: 'Tickets', icon: 'confirmation_number' },
+    { url: '/login', label: 'Auth', icon: 'login'},
+    { url: '/signup', label: 'Auth', icon: 'login'}
   ];
 
   public toggleSidenav(): void {

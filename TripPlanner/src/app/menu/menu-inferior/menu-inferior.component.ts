@@ -13,6 +13,8 @@ export class MenuInferiorComponent {
     { url: '/bills', icon: 'receipt' },
     { url: '/calendar', icon: 'calendar_today' },
     { url: '/tickets', icon: 'confirmation_number' },
+    { url: '/login', icon: 'login' },
+    { url: '/signup', icon: 'login' },
   ];
 
   constructor(private router: Router) {}

@@ -1,0 +1,262 @@
+/* Estilos existentes */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+label,
+a,
+p,
+button {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+}
+
+.day .scene {
+  background: #87ceeb;
+}
+
+.night .scene {
+  background: #001848;
+}
+
+.animation-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mountain {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+  background: #8b4513;
+  clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+  animation: moveMountain 10s linear infinite;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.sun {
+  background: #ffd700; /* Gold */
+}
+
+.moon {
+  background: #f0e68c; /* Khaki */
+}
+
+.cloud {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 100px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50px;
+  animation: moveCloud 20s linear infinite;
+}
+
+.form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 3rem;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 3vh;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+p {
+  color: #bbb;
+  margin-top: 1rem;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+@keyframes moveMountain {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes moveCloud {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Animaciones y fondo para la versión móvil */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .animation-container {
+    display: none;
+  }
+
+  .form-container {
+    width: 100%;
+    z-index: 10;
+  }
+
+  .mobile-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #87ceeb, #f0e68c);
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .mobile-background-night {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #3609e7, #7d773d);
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .mobile-mountain {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 30%;
+    background: #8b4513;
+    clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+    animation: moveMountainMobile 20s linear infinite;
+  }
+
+  .mobile-cloud {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 100px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50px;
+    animation: moveCloudMobile 20s linear infinite;
+  }
+
+  @keyframes moveMountainMobile {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes moveCloudMobile {
+    from {
+      left: 100%;
+    }
+    to {
+      left: -10%;
+    }
+  }
+}

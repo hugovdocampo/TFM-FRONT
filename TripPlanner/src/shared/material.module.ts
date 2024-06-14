@@ -42,9 +42,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
-import { CalendarModule, CalendarUtils, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // Import the missing class
-import { CalendarDayModule } from 'angular-calendar';
 
 @NgModule({
   exports: [
@@ -92,6 +89,7 @@ import { CalendarDayModule } from 'angular-calendar';
     OverlayModule,
     PortalModule,
     ScrollingModule,
+    MatChipsModule
   ],})
 export class MaterialModule {
 }
