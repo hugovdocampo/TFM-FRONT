@@ -1,15 +1,19 @@
 <div class="travel-container">
-    <div class="header">
-      <h1>Mis Viajes</h1>
-    </div>
-    
-    <mat-divider class="divisor"></mat-divider>
-    <div class="profile-grid">
-      <div class="profile" *ngFor="let travel of travels" 
-           [style.backgroundImage]="'url(' + travel.imageUrl + ')'">
-        <div class="overlay">
-          <div class="title">{{ travel.title }}</div>
-        </div>
+  <div class="header">
+    <h1>Mis Viajes</h1>
+  </div>
+  
+  <mat-divider class="divisor"></mat-divider>
+  <div class="profile-grid">
+    <div class="profile" *ngFor="let travel of travels" 
+         [style.backgroundImage]="'url(' + travel.imageUrl + ')'">
+      <div class="overlay">
+        <div class="title">{{ travel.title }}</div>
       </div>
     </div>
   </div>
+  
+  <button mat-fab class="add-travel-button" (click)="addNewTravel()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

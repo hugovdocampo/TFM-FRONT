@@ -13,9 +13,11 @@ import { MapModule } from './map/map.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { ApiModule } from 'src/shared/core/api.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { ViajeModule } from './viaje/viaje.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AuthComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     TicketsModule,
     HttpClientModule,
     ApiModule,
+    ViajeModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

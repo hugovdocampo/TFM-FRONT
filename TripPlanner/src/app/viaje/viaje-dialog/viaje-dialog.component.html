@@ -1,0 +1,138 @@
+<h1 mat-dialog-title>Crear Nuevo Viaje</h1>
+
+<div mat-dialog-content>
+  <mat-stepper #stepper [linear]="true" [orientation]="(stepperOrientation | async)!">
+    <!-- Step 1: Detalles del Viaje -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Detalles del Viaje</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Título del Viaje</mat-label>
+          <input matInput formControlName="travelTitle">
+        </mat-form-field>
+        <div class="fechas">
+            <mat-form-field appearance="fill">
+            <mat-label>Fecha de Inicio</mat-label>
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+            <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+            <mat-label>Fecha de Fin</mat-label>
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+            </mat-form-field>
+        </div>
+        <div class="stepper-navigation">
+            <div class="step-dots">
+              <div *ngFor="let step of stepper?._steps; let i = index" class="step-dot" [class.active]="i === stepper.selectedIndex"></div>
+            </div>
+            <button mat-icon-button (click)="stepper.next()" *ngIf="stepper">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 2: Establecer Participantes -->
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Establecer Participantes</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Añadir Participante</mat-label>
+          <input matInput formControlName="participant">
+        </mat-form-field>
+        <button mat-button (click)="addUser()">Añadir</button>
+        <mat-chip-set>
+          <mat-chip *ngFor="let user of selectedUsers" [removable]="true" (removed)="removeUser(user)">
+            {{ user }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-set>
+        <div class="stepper-navigation">
+            <button mat-icon-button (click)="stepper.previous()" *ngIf="stepper">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class="step-dots">
+              <div *ngFor="let step of stepper?._steps; let i = index" class="step-dot" [class.active]="i === stepper.selectedIndex"></div>
+            </div>
+            <button mat-icon-button (click)="stepper.next()" *ngIf="stepper">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 3: Añadir Propuestas -->
+    <mat-step [stepControl]="thirdFormGroup">
+        <ng-template matStepLabel>Añadir Propuestas</ng-template>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let proposal of propuestas">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ proposal.titulo }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ proposal.descripcion }}</p>
+            <p><strong>Presupuesto:</strong> {{ proposal.presupuesto | currency }}</p>
+            <p><strong>Valoración:</strong> {{ proposal.valoracion }}</p>
+          </mat-expansion-panel>
+  
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                + Añadir Propuesta
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="proposalForm">
+              <mat-form-field appearance="fill">
+                <mat-label>Título de la Propuesta</mat-label>
+                <input matInput formControlName="titulo">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="descripcion"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Presupuesto</mat-label>
+                <input matInput type="number" formControlName="presupuesto">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Valoración</mat-label>
+                <input matInput type="number" formControlName="valoracion" min="0" max="5">
+              </mat-form-field>
+              <button mat-button type="button" (click)="addNewPropuesta()">Añadir Propuesta</button>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div class="stepper-navigation">
+            <button mat-icon-button (click)="stepper.previous()" *ngIf="stepper">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class="step-dots">
+              <div *ngFor="let step of stepper?._steps; let i = index" class="step-dot" [class.active]="i === stepper.selectedIndex"></div>
+            </div>
+            <button mat-icon-button (click)="stepper.next()" *ngIf="stepper">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+
+    <!-- Step 4: Confirmar y Crear -->
+    <mat-step>
+      <ng-template matStepLabel>Confirmar y Crear</ng-template>
+      <button mat-icon-button (click)="stepper.previous()" *ngIf="stepper">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-button (click)="onCreate()">Confirmar y Crear</button>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onCreate()">Crear</button>
+</div>
