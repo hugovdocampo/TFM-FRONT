@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PropuestaDTO } from 'src/shared/core/model/propuestaDTO.model';
+import { PropuestaDto } from 'src/shared/core/model/index';
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -18,11 +18,11 @@ export class ViajeDialogComponent {
   travelTitle: string = '';
   selectedUsers: string[] = [];
   userInput: string = '';
-  propuestas: PropuestaDTO[] = [];
-  nuevaPropuesta: PropuestaDTO = {
-    id: -1,
-    viajeID: -1,
-    titulo: '',
+  propuestas: PropuestaDto[] = [];
+  nuevaPropuesta: PropuestaDto = {
+    id: 1,
+    idViaje: 1,
+    nombre: '',
     descripcion: '',
     presupuesto: 0,
     valoracion: 0,
@@ -82,7 +82,7 @@ export class ViajeDialogComponent {
 
   addNewPropuesta(): void {
     if (this.proposalForm.valid) {
-      const newProposal: PropuestaDTO = this.proposalForm.value;
+      const newProposal: PropuestaDto = this.proposalForm.value;
       this.propuestas.push(newProposal);
       this.proposalForm.reset({ presupuesto: 0, valoracion: 0 });
     }

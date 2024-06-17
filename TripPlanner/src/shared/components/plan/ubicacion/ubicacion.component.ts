@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UbicacionDTO } from 'src/shared/core/model/ubicacionDTO.model';
+import { UbicacionDto } from 'src/shared/core/model/index';
 
 @Component({
   selector: 'app-ubicacion',
@@ -33,7 +33,7 @@ export class UbicacionComponent implements OnInit{
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   requisitos: string[] = [];
 
-  @Output() ubicacionChange: EventEmitter<UbicacionDTO> = new EventEmitter<UbicacionDTO>();
+  @Output() ubicacionChange: EventEmitter<UbicacionDto> = new EventEmitter<UbicacionDto>();
   
   announcer = inject(LiveAnnouncer);
   ubicacionForm: FormGroup;
@@ -92,7 +92,7 @@ export class UbicacionComponent implements OnInit{
     }
   }
 
-  loadForm(ubicacion: UbicacionDTO | undefined): void {
+  loadForm(ubicacion: UbicacionDto | undefined): void {
     if (!ubicacion) {
       return;
     }

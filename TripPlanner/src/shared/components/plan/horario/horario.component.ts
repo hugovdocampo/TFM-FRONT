@@ -10,7 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs';
-import { HorarioDTO } from 'src/shared/core/model/horarioDTO.model';
+import { HorarioDto } from 'src/shared/core/model/index';
 
 @Component({
   selector: 'app-horario',
@@ -27,8 +27,8 @@ import { HorarioDTO } from 'src/shared/core/model/horarioDTO.model';
   standalone: true,
 })
 export class HorarioComponent {
-  @Input() initialHorario: HorarioDTO | undefined = undefined;
-  @Output() horarioChange: EventEmitter<HorarioDTO> = new EventEmitter<HorarioDTO>();
+  @Input() initialHorario: HorarioDto | undefined = undefined;
+  @Output() horarioChange: EventEmitter<HorarioDto> = new EventEmitter<HorarioDto>();
 
   horarioForm: FormGroup;
 
@@ -114,13 +114,13 @@ export class HorarioComponent {
     return date.toISOString().split('T')[0];
   }
 
-  loadForm(horario: HorarioDTO | undefined) {
+  loadForm(horario: HorarioDto | undefined) {
     if (horario) {
       let horarioFormatted = {
-        diaInicio: horario.diaInicio ? new Date(horario.diaInicio) : null,
-        horaInicio: horario.horaInicio,
-        diaFin: horario.diaFin ? new Date(horario.diaFin) : null,
-        horaFin: horario.horaFin,
+        diaInicio: horario.inicio ? new Date(horario.inicio).toISOString().split('T')[0] : null,
+        horaInicio: horario.inicio ? new Date(horario.inicio).toISOString().split('T')[0] : null,
+        diaFin: horario.fin ? new Date(horario.fin).toISOString().split('T')[1] : null,
+        horaFin: horario.fin ? new Date(horario.fin).toISOString().split('T')[1] : null,
       };
       this.horarioForm.enable({ emitEvent: false });
       this.horarioForm.patchValue(horarioFormatted, { emitEvent: false });

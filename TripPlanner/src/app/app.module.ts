@@ -12,12 +12,14 @@ import { CalendarModuleR } from './calendar/calendar.module';
 import { MapModule } from './map/map.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { ApiModule } from 'src/shared/core/api.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
 import { ViajeModule } from './viaje/viaje.module';
+import { JwtInterceptor } from 'src/shared/core/auth.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,9 +32,11 @@ import { ViajeModule } from './viaje/viaje.module';
     TicketsModule,
     HttpClientModule,
     ApiModule,
-    ViajeModule
+    ViajeModule,
+    AuthComponent,
+    MatSnackBarModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

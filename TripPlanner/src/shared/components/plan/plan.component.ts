@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { HorarioComponent } from './horario/horario.component';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { PlanDetalleDTO } from 'src/shared/core/model/planDetalleDTO.model';
+import { PlanDetalleDto } from 'src/shared/core/model/index';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
 import { PagoComponent } from './pago/pago.component';
 
@@ -35,7 +35,7 @@ import { PagoComponent } from './pago/pago.component';
     MatIconModule,
     ReactiveFormsModule,
     UbicacionComponent,
-    PagoComponent
+    PagoComponent,
   ],
   templateUrl: './plan.component.html',
   styleUrls: ['./plan.component.scss'],
@@ -46,14 +46,14 @@ export class PlanComponent implements AfterViewInit {
     @ViewChild('ubicacion') ubicacionComponent!: UbicacionComponent;
     @ViewChild('pago') pagoComponent!: PagoComponent;
     planForm: FormGroup;
-    planDetalleDTO: PlanDetalleDTO | undefined;
+    planDetalleDto: PlanDetalleDto | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<PlanComponent>,
-    @Inject(MAT_DIALOG_DATA) public plan: PlanDetalleDTO | undefined,
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public plan: PlanDetalleDto | undefined,
+    private fb: FormBuilder,
   ) {
-    this.planDetalleDTO = plan;
+    this.planDetalleDto = plan;
 
     this.planForm = this.fb.group({
         nombre: [{ value: null }],
@@ -67,9 +67,9 @@ export class PlanComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.horarioComponent.loadForm(this.planDetalleDTO?.horario);
-    this.ubicacionComponent.loadForm(this.planDetalleDTO?.ubicacion);
-    this.pagoComponent.loadForm(this.planDetalleDTO?.pago);
+    this.horarioComponent.loadForm(this.planDetalleDto?.horario);
+    this.ubicacionComponent.loadForm(this.planDetalleDto?.ubicacion);
+    this.pagoComponent.loadForm(this.planDetalleDto?.idPago);
   }
 
   cancelar() {
@@ -81,11 +81,11 @@ export class PlanComponent implements AfterViewInit {
   }
 
   saveChanges(data: any, tipo: string) {
-    if (this.planDetalleDTO) {
-      if (tipo === 'horario') this.planDetalleDTO.horario = data;
-      if (tipo === 'ubicacion') this.planDetalleDTO.ubicacion = data;
-      if (tipo === 'pago') this.planDetalleDTO.pago = data;
-      if (tipo === 'valoracion') this.planDetalleDTO.valoracion = data;
+    if (this.planDetalleDto) {
+      if (tipo === 'horario') this.planDetalleDto.horario = data;
+      if (tipo === 'ubicacion') this.planDetalleDto.ubicacion = data;
+      //if (tipo === 'pago') this.planDetalleDto.pago = data;
+      if (tipo === 'valoracion') this.planDetalleDto.importancia = data;
     }
   }
   

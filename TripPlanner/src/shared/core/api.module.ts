@@ -2,22 +2,23 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { ViajesResourceService } from './api/viajesResource.sevice';
-import { PlanesResourceService } from './api/planesResource.service';
-import { PropuestasResourceService } from './api/propuestaResource.service';
-import { TicketsResourceService } from './api/ticketsResouce.service';
-import { PagosResourceService } from './api/pagosResource.service';
+import { ViajeControllerService } from './api/viaje-controller/viaje-controller.service';
+import { PlanControllerService } from './api/plan-controller/plan-controller.service';
+import { PropuestaControllerService } from './api/propuesta-controller/propuesta-controller.service';
+import { TicketControllerService } from './api/ticket-controller/ticket-controller.service';
+import { PagoControllerService } from './api/pago-controller/pago-controller.service';
+
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    ViajesResourceService,
-    PlanesResourceService,
-    PropuestasResourceService,
-    TicketsResourceService,
-    PagosResourceService]
+    ViajeControllerService,
+    PlanControllerService,
+    PropuestaControllerService,
+    TicketControllerService,
+    PagoControllerService]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
