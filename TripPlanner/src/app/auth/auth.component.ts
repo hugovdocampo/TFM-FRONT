@@ -66,14 +66,27 @@ export class AuthComponent implements OnInit {
       this.authService.authenticate(loginData).subscribe({
         next: response => {
           if (!response.token) {
+            this.snackBar.open('Login failed', 'Close', {
+              duration: 10000,
+              verticalPosition: 'top'
+            });
             this.errorMessage = 'Login failed';
             return;
           }
+          this.snackBar.open('Has iniciado sesón', 'Close', {
+            duration: 10000,
+            verticalPosition: 'top'
+          });
           localStorage.setItem('access_token', response.token); // Asegúrate de ajustar la propiedad según tu respuesta
           this.router.navigate(['/']); // Redirigir a la página principal u otra página
         },
         error: error => {
-          this.errorMessage = error.error.message || 'Login failed';
+          this.errorMessage = 'Login failed';
+          this.snackBar.open('Login failed', 'Close', {
+            duration: 10000,
+            verticalPosition: 'top'
+          });
+          localStorage.removeItem('access_token');
         }
       });
     } else {
@@ -84,11 +97,12 @@ export class AuthComponent implements OnInit {
         next: response => {
           this.snackBar.open('Registration successful. Please log in.', 'Close', {
             duration: 10000,
+            verticalPosition: 'top'
           });
           this.router.navigate(['/login']); 
         },
         error: error => {
-          this.errorMessage = error.error.message || 'Registration failed';
+          this.errorMessage = 'Registration failed';
         }
       });
     }
