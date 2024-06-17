@@ -10,8 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
 import { Map as MapLibre, Marker, NavigationControl, Popup } from 'maplibre-gl';
 import { PlanComponent } from 'src/shared/components/plan/plan.component';
-import { PlanesResourceService } from 'src/shared/core/api/planesResource.service';
-import { PlanDetalleDTO } from 'src/shared/core/model/planDetalleDTO.model';
+import { PlanControllerService } from 'src/shared/core/api/plan-controller/plan-controller.service';
+import { PlanDetalleDto } from 'src/shared/core/model/index';
 
 @Component({
   selector: 'app-map-plan',
@@ -27,7 +27,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showPlan = true;
 
-  planesOrderByDate: Map<string, { color: string; planes: PlanDetalleDTO[] }> =
+  planesOrderByDate: Map<string, { color: string; planes: PlanDetalleDto[] }> =
     new Map();
 
   selectedOptions: any[] = [];
@@ -46,13 +46,14 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dias') dias!: MatSelectionList;
 
   ngOnInit(): void {
-    this._planesReource.getAllPlanesByViaje(1).subscribe((planes) => {
+    this._planesController.findPlanesByIdViaje({idViaje: 1}).subscribe((planes: PlanDetalleDto[]) => {
+      console.log(planes);
       this.planesOrderByDate = this.organizarPlanesPorFecha(planes);
       this.selectedOptions = Array.from(this.planesOrderByDate.values());
     });
   }
 
-  constructor(private _planesReource: PlanesResourceService, public dialog: MatDialog) {}
+  constructor(private _planesController: PlanControllerService, public dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
     let map = (this.map = new MapLibre({
@@ -99,14 +100,13 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   organizarPlanesPorFecha(
-    planes: PlanDetalleDTO[]
-  ): Map<string, { color: string; planes: PlanDetalleDTO[] }> {
-    const map = new Map<string, { color: string; planes: PlanDetalleDTO[] }>();
+    planes: PlanDetalleDto[]
+  ): Map<string, { color: string; planes: PlanDetalleDto[] }> {
+    const map = new Map<string, { color: string; planes: PlanDetalleDto[] }>();
 
     planes.forEach((plan) => {
-      if (plan.horario && plan.horario.diaInicio) {
-        const fechaInicio = plan.horario.diaInicio;
-
+      if (plan.horario && plan.horario.inicio) {
+        const fechaInicio = new Date(plan.horario.inicio).toISOString().split('T')[0];
         if (!map.has(fechaInicio)) {
           map.set(fechaInicio, {
             color:
@@ -129,7 +129,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRandomColor(
-    map: Map<string, { color: string; planes: PlanDetalleDTO[] }>
+    map: Map<string, { color: string; planes: PlanDetalleDto[] }>
   ): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -165,9 +165,11 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
             //this.plan.loadForm(plan);
             this.dialog.open(PlanComponent, {data: plan});
           });
+          console.log("plan");
           this.markers.push(
             new Marker({ color: day?.color })
-              .setLngLat(plan.ubicacion.coordenadas)
+              //.setLngLat(plan.ubicacion.coordenadas.split(','))
+              .setLngLat([-3.66,40.5])
               .addTo(this.map!)
               .setPopup(new Popup().setDOMContent(divElement))
           );

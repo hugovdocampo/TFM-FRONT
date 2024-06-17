@@ -1,40 +1,52 @@
 <div class="container" [ngClass]="{ 'day': isLoginMode, 'night': !isLoginMode }">
-    <div class="animation-container">
-      <div class="scene">
-        <div class="mountain"></div>
-        <div class="sun" *ngIf="isLoginMode"></div>
-        <div class="moon" *ngIf="!isLoginMode"></div>
-        <div class="cloud"></div>
-      </div>
+  <div class="animation-container">
+    <div class="scene">
+      <div class="mountain"></div>
+      <div class="sun" *ngIf="isLoginMode"></div>
+      <div class="moon" *ngIf="!isLoginMode"></div>
+      <div class="cloud"></div>
     </div>
-    <div class="form-container">
-      <div class="card">
-        <h2>{{ isLoginMode ? 'Login' : 'Sign Up' }}</h2>
-        <form>
-          <div *ngIf="!isLoginMode" class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" required>
-          </div>
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
-          </div>
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" required>
-          </div>
-          <button type="submit" class="btn">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button>
-          <p *ngIf="isLoginMode">
-            <a href="#">Forgot your password?</a>
-          </p>
-          <p>
-            {{ isLoginMode ? 'Don\'t have an account?' : 'Already have an account?' }}
-            <a [routerLink]="[isLoginMode ? '/signup' : '/login']">{{ isLoginMode ? 'Sign Up' : 'Login' }}</a>
-          </p>
-        </form>
-      </div>
-    </div>
-    <div [ngClass]="{ 'mobile-background': isLoginMode, 'mobile-background-night': !isLoginMode }"></div>
-    <div class="mobile-mountain"></div>
-    <div class="mobile-cloud"></div>
   </div>
+  <div class="form-container">
+    <div class="card">
+      <h2>{{ isLoginMode ? 'Login' : 'Sign Up' }}</h2>
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="!isLoginMode" class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" formControlName="username">
+          <div *ngIf="authForm.get('username')?.invalid && authForm.get('username')?.touched" class="error">
+            Username is required
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email">
+          <div *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched" class="error">
+            Valid email is required
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password">
+          <div *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched" class="error">
+            Password must be at least 6 characters long
+          </div>
+        </div>
+        <button type="submit" class="btn" [disabled]="authForm.invalid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button>
+        <p *ngIf="isLoginMode">
+          <a href="#">Forgot your password?</a>
+        </p>
+        <p>
+          {{ isLoginMode ? 'Don\'t have an account?' : 'Already have an account?' }}
+          <a [routerLink]="[isLoginMode ? '/signup' : '/login']">{{ isLoginMode ? 'Sign Up' : 'Login' }}</a>
+        </p>
+        <div *ngIf="errorMessage" class="error">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+  <div [ngClass]="{ 'mobile-background': isLoginMode, 'mobile-background-night': !isLoginMode }"></div>
+  <div class="mobile-mountain"></div>
+  <div class="mobile-cloud"></div>
+</div>

@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { PagoDTO } from 'src/shared/core/model/pagoDTO.model';
+import { PagoDto } from 'src/shared/core/model/index';
+import { PagoControllerService } from 'src/shared/core/api/pago-controller/pago-controller.service';
 
 @Component({
     selector: 'app-pago',
@@ -23,7 +24,7 @@ import { PagoDTO } from 'src/shared/core/model/pagoDTO.model';
 export class PagoComponent { 
 
     pagoForm: FormGroup;
-    @Output() pagoChange = new EventEmitter<PagoDTO>();
+    @Output() pagoChange = new EventEmitter<PagoDto>();
 
   // Lista de usuarios (debería ser reemplazada por datos reales)
   usuarios = [
@@ -33,7 +34,9 @@ export class PagoComponent {
     { id: 4, nombre: 'Usuario 4' }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private _pagosController: PagoControllerService
+  ) {
     this.pagoForm = this.fb.group({
       total: [null, [Validators.pattern(/^[0-9]*(\.[0-9]{0,2})?$/), Validators.required]],
       idPagador: [null, Validators.required],
@@ -52,11 +55,13 @@ export class PagoComponent {
     this.pagoForm.updateValueAndValidity();
   }
 
-  loadForm(pago: PagoDTO | undefined): void {
-    if (!pago) {
+  loadForm(idPago: number | undefined): void {
+    if (!idPago) {
       return;
     }
-    this.pagoForm.patchValue(pago, { emitEvent: false });
+    this._pagosController.getPago(idPago).subscribe(pago => {
+      this.pagoForm.patchValue(pago, { emitEvent: false });
+    });
   }
 
   onTotalInput(event: any): void {
