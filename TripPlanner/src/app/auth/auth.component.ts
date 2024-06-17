@@ -50,7 +50,6 @@ export class AuthComponent implements OnInit {
       }
       this.authForm.get('username')?.updateValueAndValidity();
     });
-    localStorage.removeItem('access_token');
   }
 
   onSubmit(): void {
