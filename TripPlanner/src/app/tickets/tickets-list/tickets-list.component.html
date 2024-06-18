@@ -1,0 +1,35 @@
+<h1 mat-dialog-title class="titulo">Mis Tickets</h1>
+<mat-divider></mat-divider>
+
+<div class="container">
+  <div class="row card">
+    <div class="col-md-4" *ngFor="let ticket of tickets" (click)="openTicket(ticket.id)">
+      <mat-card class="card">
+        <mat-card-header class="cabecera" [ngStyle]="{'color': getCategoryColor(ticket.category)}">
+            <mat-card-title class="evento">
+                <mat-icon style="margin-right: 5px;">{{ getCategoryIcon(ticket.category) }}</mat-icon>
+                {{ ticket.name }}</mat-card-title>
+        </mat-card-header>
+        <div class="info">
+            <div class="img-cont">
+                <img class="foto"src="{{ getBannerImage(ticket.category) }}" alt="Imagen del evento">
+            </div>
+            <mat-card-content style="margin-top: 2vw;">
+                <div class="apartado">
+                    <p style="font-weight: bold; color: #009fb7; margin:0 !important;">Ubicación:</p>
+                    <p style="margin: 0 !important;">{{ ticket.location.length >18 ? ticket.location.slice(0,18) + '...' : ticket.location }}</p>
+                </div>
+                <div class="apartado">
+                    <p style="font-weight: bold; color: #009fb7; margin: 0 !important;">Duracion:</p> 
+                    <p style="margin: 0 !important;">{{ ticket.startTime | date: 'HH:mm'}} - {{ ticket.endTime | date: 'HH:mm' }}</p>
+                </div>
+                <div class="apartado" *ngIf="isDesktop">
+                    <p style="font-weight: bold; color: #009fb7; margin: 0 !important;">Duracion:</p> 
+                    <p style="margin: 0 !important;">{{ ticket.description.length >300 ? ticket.description.slice(0,300) + '...' : ticket.description }}</p>
+                </div>
+            </mat-card-content>
+       </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

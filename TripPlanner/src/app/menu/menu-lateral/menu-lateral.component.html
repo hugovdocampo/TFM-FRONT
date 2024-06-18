@@ -13,14 +13,18 @@
       <option value="es">Viaje 1</option>
       <option value="en">Viaje 2</option>
     </select>
-    <mat-icon class="boton-pers">person_ou</mat-icon>
+    <mat-icon class="boton-pers" [matMenuTriggerFor]="menu">person_outline</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
   </div>
 </header>
 
 <mat-drawer-container autosize class="main-content">
   <mat-drawer #drawer mode="side" disableClose="true" opened="true">
     <mat-nav-list *ngIf="isExpanded">
-      <a ngClass="opcion-menu" *ngFor="let link of links" routerLink="{{ link.url }}" routerLinkActive="active">
+      <a ngClass="opcion-menu" *ngFor="let link of links" routerLink="{{ link.url }}" 
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <mat-icon >{{ link.icon }}</mat-icon>
         <span class="texto-menu">{{ link.label }}</span>
       </a>

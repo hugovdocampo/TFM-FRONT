@@ -4,11 +4,11 @@ header span {
   margin-top: 4px;
 }
 
-header select {
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #fed766ff;
-  color: black;
+header .select{
+  margin-right: 10px;
+  border-color: #009fb7;
+  padding: 2px;
+  border-radius: 6px;
 }
 
 mat-drawer {
@@ -110,7 +110,6 @@ header div {
 .header .derecha {
   display: flex;
   align-items: center;
-  padding-right: 20px;
 }
 
 .app-title {
@@ -128,4 +127,12 @@ header div {
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+.opcion-menu.active {
+  color: black; 
+}
+
+.opcion-menu.active mat-icon {
+  color: black;
 }

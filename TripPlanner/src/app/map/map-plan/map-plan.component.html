@@ -1,17 +1,21 @@
 <div class="map-wrap">
   <div class="map" #map>
     <div class="map-tools">
+      <!-- me creo un boton que este fijoa rriba y cuando se pulse se mueste el toggle btn-->
+      <button class="boton-planes" (click)="togglePlanList()">
+        <mat-icon>list</mat-icon>
+      </button>
+      <div class="plan-list-container" *ngIf="showPlanList">
         <div class="toggle-btn">
           <p><mat-slide-toggle id="toggle" #toggle [(ngModel)]="allSelected" (change)="toggleAllSelection($event.checked)"></mat-slide-toggle></p>
           <label for="toggle">Todos los días</label>
         </div>
-        <div class="plan-list-container">
-          <mat-selection-list #dias class="plan-list" #allSeleceted [(ngModel)]="selectedOptions" (ngModelChange)="onSelectionChange($event)">
-            <mat-list-option *ngFor="let item of planesOrderByDate | keyvalue" [value]='item.value'>
-              <p [style.color]='item.value.color'>{{item.key}}</p>
-            </mat-list-option>
-          </mat-selection-list>
-        </div>
+        <mat-selection-list #dias class="plan-list" #allSeleceted [(ngModel)]="selectedOptions" (ngModelChange)="onSelectionChange($event)">
+          <mat-list-option *ngFor="let item of planesOrderByDate | keyvalue" [value]='item.value'>
+            <p [style.color]='item.value.color'>{{item.key}}</p>
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
     </div>
   </div>
 </div>

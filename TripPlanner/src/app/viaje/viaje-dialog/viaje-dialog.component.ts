@@ -14,6 +14,8 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class ViajeDialogComponent {
   @ViewChild('stepper') stepper!: MatStepper;
+  panelOpenState = false;
+
   stepperOrientation: Observable<StepperOrientation>;
   travelTitle: string = '';
   selectedUsers: string[] = [];
@@ -86,6 +88,8 @@ export class ViajeDialogComponent {
       this.propuestas.push(newProposal);
       this.proposalForm.reset({ presupuesto: 0, valoracion: 0 });
     }
+    this.panelOpenState = false;
+    console.log(this.panelOpenState);
   }
 
   onCreate(): void {
@@ -100,7 +104,7 @@ export class ViajeDialogComponent {
     this.dialogRef.close();
   }
 
-  isLastStep(): boolean {
-    return this.stepper.selectedIndex === this.stepper.steps.length - 1;
+  get isLastStep(): boolean {
+    return this.stepper && this.stepper.selectedIndex === this.stepper._steps.length - 1;
   }
 }

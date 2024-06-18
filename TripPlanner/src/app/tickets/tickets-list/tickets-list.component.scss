@@ -1,0 +1,99 @@
+.titulo {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(140, 134, 134);
+  margin: 1.5vw;
+  overflow: hidden;
+}
+
+.divisor {
+  background: rgb(216 211 211 / 54%);
+  margin-bottom: 40px;
+  height: 2px;
+}
+
+:host {
+  display: block;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden !important;
+}
+
+::ng-deep {
+  body {
+    overflow: hidden;
+  }
+}
+
+.container {
+  height: 75vh;
+  overflow: auto;
+}
+
+.foto {
+  margin-top: 2vw;
+  width: 20vw;
+  border-radius: 10px;
+  height: 14vw;
+}
+
+.img-cont {
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  margin: 2vw;
+  padding: 2vw;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.cabecera {
+  border-bottom: 2px solid rgb(216 211 211 / 54%);
+  display: flex;
+  align-items: flex-end;
+  padding-top: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+}
+
+.evento {
+  margin-bottom: 1vw;
+  display: flex;
+  align-items: flex-end;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+  .foto {
+    margin-top: 2vw;
+    width: 35vw;
+    border-radius: 10px;
+    height: 25vw;
+  }
+
+  .info{
+    padding: 20px 0 20px 10px;
+  }
+
+  .cabecera {
+    padding: 2vw;
+  }
+
+  .apartado {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::ng-deep{
+    .mat-mdc-card-content:last-child {
+      padding-bottom: 0 !important;
+    }
+  }
+}

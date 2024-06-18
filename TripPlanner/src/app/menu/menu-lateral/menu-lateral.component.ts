@@ -18,14 +18,15 @@ export class MenuLateralComponent {
     { url: '/bills', label: 'Bills', icon: 'receipt' },
     { url: '/calendar', label: 'Calendar', icon: 'calendar_today' },
     { url: '/tickets', label: 'Tickets', icon: 'confirmation_number' },
-    { url: '/login', label: 'Auth', icon: 'login'},
-    { url: '/signup', label: 'Auth', icon: 'login'}
   ];
 
   public toggleSidenav(): void {
     this.isExpanded = !this.isExpanded;
     this.sidenav.toggle();
   }
+
+  public logout(): void {
+    localStorage.removeItem('access_token');
+    window.location.href = '/login';
+  }
 }
-
-

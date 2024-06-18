@@ -13,13 +13,19 @@ export class MenuInferiorComponent {
     { url: '/bills', icon: 'receipt' },
     { url: '/calendar', icon: 'calendar_today' },
     { url: '/tickets', icon: 'confirmation_number' },
-    { url: '/login', icon: 'login' },
-    { url: '/signup', icon: 'login' },
   ];
+  
+  activeLink: string = '/'; 
 
   constructor(private router: Router) {}
 
   navigate(url: string): void {
     this.router.navigate([url]);
+    this.activeLink = url;
+  }
+
+  public logout(): void {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/login']);
   }
 }
