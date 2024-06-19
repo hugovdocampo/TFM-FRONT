@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Crear Nuevo Viaje</h1>
+<h1 mat-dialog-title class="titulo">Crear Nuevo Viaje</h1>
 
 <div mat-dialog-content>
   <mat-stepper #stepper [linear]="true" [orientation]="(stepperOrientation | async)!">
@@ -10,11 +10,11 @@
           <mat-label>Título del Viaje</mat-label>
           <input matInput formControlName="travelTitle">
         </mat-form-field>
-        <div class="fechas">
+        <div class="fechas columnaFechas">
             <mat-form-field appearance="fill">
             <mat-label>Fecha de Inicio</mat-label>
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePicker></mat-datepicker>
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker></mat-datepicker>
             <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
             </mat-form-field>
             <mat-form-field appearance="fill">
@@ -38,12 +38,14 @@
     <!-- Step 2: Establecer Participantes -->
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Establecer Participantes</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Añadir Participante</mat-label>
-          <input matInput formControlName="participant">
-        </mat-form-field>
-        <button mat-button (click)="addUser()">Añadir</button>
+        <ng-template matStepLabel>Participantes</ng-template>
+        <div class="participantes">
+          <mat-form-field appearance="fill">
+            <mat-label>Mail</mat-label>
+            <input matInput formControlName="participant">
+          </mat-form-field>
+          <button mat-button (click)="addUser()" class="add">Añadir</button>
+        </div>
         <mat-chip-set>
           <mat-chip *ngFor="let user of selectedUsers" [removable]="true" (removed)="removeUser(user)">
             {{ user }}
@@ -69,8 +71,8 @@
         <ng-template matStepLabel>Añadir Propuestas</ng-template>
         <mat-accordion>
           <mat-expansion-panel *ngFor="let proposal of propuestas">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
+            <mat-expansion-panel-header style="border-bottom-style: ridge;">
+              <mat-panel-title style="font-size: 16px; font-weight: bold; color: rgb(140, 134, 134);">
                 {{ proposal.nombre }}
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -82,17 +84,17 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                + Añadir Propuesta
+                + Propuesta
               </mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="proposalForm">
               <mat-form-field appearance="fill">
-                <mat-label>Título de la Propuesta</mat-label>
+                <mat-label>Título</mat-label>
                 <input matInput formControlName="titulo">
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Descripción</mat-label>
-                <textarea matInput formControlName="descripcion"></textarea>
+                <textarea matInput formControlName="descripcion" style="resize: none;"></textarea>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Presupuesto</mat-label>
@@ -102,8 +104,10 @@
                 <mat-label>Valoración</mat-label>
                 <input matInput type="number" formControlName="valoracion" min="0" max="5">
               </mat-form-field>
-              <button mat-button type="button" (click)="addNewPropuesta()">Añadir Propuesta</button>
-            </form>
+              <div style="display: flex; justify-content: flex-end; width: 100%;">
+                <button mat-button type="button" (click)="addNewPropuesta()" class="propuesta">Añadir</button>
+              </div>
+              </form>
           </mat-expansion-panel>
         </mat-accordion>
         <div class="stepper-navigation">
@@ -118,21 +122,12 @@
             </button>
         </div>
     </mat-step>
-
-    <!-- Step 4: Confirmar y Crear -->
-    <mat-step>
-      <ng-template matStepLabel>Confirmar y Crear</ng-template>
-      <button mat-icon-button (click)="stepper.previous()" *ngIf="stepper">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      <button mat-button (click)="onCreate()">Confirmar y Crear</button>
-    </mat-step>
   </mat-stepper>
 </div>
 
 
 
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button (click)="onCreate()">Crear</button>
+<div mat-dialog-actions class="botones">
+  <button mat-button (click)="onCancel()" class="boton1">Cancelar</button>
+  <button mat-button (click)="onCreate()" class="boton2" [disabled]="!isLastStep">Crear</button>
 </div>

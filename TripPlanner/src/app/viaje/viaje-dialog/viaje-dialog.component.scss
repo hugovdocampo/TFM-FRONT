@@ -94,3 +94,76 @@ mat-label {
     }
   }
 }
+
+.titulo {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(140, 134, 134);
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end !important;
+  align-content: flex-end;
+  margin: 0 48px 24px 0 !important;
+}
+
+.boton1 {
+  padding: 4px 20px 4px 20px;
+  background-color: rgba(140, 134, 134, 0.2);
+}
+.boton2 {
+  padding: 4px 20px 4px 20px;
+  background-color: #009fb7;
+  color: white !important;
+}
+
+.boton2:disabled {
+  background-color: #009fb76b;
+}
+
+::ng-deep {
+  .mat-step-header {
+    margin-bottom: 4vh !important;
+  }
+
+  .mat-step-icon {
+    color: white !important;
+  }
+}
+
+.participantes {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 600px) {
+  ::ng-deep {
+    .mat-step-header {
+      margin-bottom: 2vh !important;
+    }
+  }
+
+  .columnaFechas {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.add {
+  background: #fed766ff;
+  margin: 10px 0 10px 12px;
+  border-radius: 8px;
+  padding: 20px 0 20px 0;
+}
+
+.propuesta {
+  background: #fed766ff;
+  margin: 10px 0 10px 12px;
+  border-radius: 8px;
+  padding: 20px 20px 20px 20px;
+}

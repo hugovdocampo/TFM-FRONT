@@ -3,17 +3,29 @@
   padding: 20px;
   background-color: #f0f4f8;
   font-family: "Roboto", sans-serif;
+  overflow: hidden !important;
+}
+
+::ng-deep {
+  body {
+    overflow: hidden !important;
+  }
 }
 
 .mat-tab-group {
   width: 100%;
-  height: 100vh; 
   display: block;
+}
+
+::ng-deep {
+  mat-tab-header {
+    font-weight: bold;
+  }
 }
 
 .mat-list {
   overflow-y: auto;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .expenses-container {
@@ -29,12 +41,14 @@
   overflow-y: auto;
 }
 
-.graficas, .payments-container {
+.graficas,
+.payments-container {
   margin-top: 40px;
 }
 
 .lista {
   padding: 20px;
+  margin-bottom: 25px;
 }
 
 .chart-container {
@@ -54,7 +68,7 @@
 
 .expense-title {
   font-size: 16px;
-  color: #1976d2; 
+  color: #009fb7;
   font-weight: bold;
   margin-bottom: 5px;
 }
@@ -68,14 +82,14 @@
 .expense-amount {
   font-size: 16px;
   font-weight: bold;
-  color: #333; 
+  color: #333;
 }
 
 .pack-bajo {
   display: flex;
   justify-content: center;
   width: 100%;
-  position: fixed; 
+  position: fixed;
   bottom: 0px;
   z-index: 1000;
 }
@@ -86,14 +100,15 @@
 }
 
 .boton-add {
-  bottom: 50px;
+  bottom: 25px;
 }
 
 .colores {
-  background: rgb(104, 174, 254);
+  background: #009fb7;
   z-index: 10000;
-  padding: 22px;
+  padding: 0 22px;
   margin-left: -20px;
+  color: white !important;
 }
 
 .total {
@@ -103,55 +118,60 @@
 }
 
 .boton-pagar {
-  background: #1976d2;
   color: white !important;
   border-radius: 8px;
-  scale: 0.8;
 }
 
 .budget-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  padding: 20px;  
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  margin-top: 20px;
+  width: 100%;
 }
 
 .circle-chart-container {
-  width: 150px;
-  height: 150px;
-}
-
-.budget-container {
-  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 20vh;
 }
 
 .spending-details {
-  flex-direction: column;
-  align-items: center;
-}
-
-.spent, .budget-amount, .days-left {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
 }
 
-.spent h3, .budget-amount h3, .days-left h3 {
-  color: #1976d2;
+.spent,
+.budget-amount,
+.days-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.spent h3,
+.budget-amount h3,
+.days-left h3 {
+  color: #009fb7;
   font-weight: bold;
 }
 
-.spent{
+.spent {
   margin-right: 20px;
 }
 
 .days-left mat-icon {
   font-size: 24px;
-  color: #1976d2;
+  color: #009fb7;
   width: 100%;
 }
 
@@ -159,7 +179,19 @@
   margin-top: 20px;
   font-size: 24px;
   font-weight: bold;
-  color: #1976d2;
+  color: rgb(140, 134, 134);
+}
+
+.tab {
+  overflow-y: auto !important;
+  padding-bottom: 20vh !important;
+}
+
+::ng-deep .tabss {
+  .mat-mdc-tab-body {
+    height: 80vh !important;
+    overflow-y: auto;
+  }
 }
 
 @media (max-width: 600px) {
@@ -172,16 +204,68 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .boton-add {
+    scale: 0.8;
+  }
 
   .pack-bajo {
     width: 90%;
+    bottom: 45px;
   }
 
-  .total{
-    font-size: 14px
+  .total {
+    font-size: 14px;
   }
 
-  .circle-chart-container {
-    margin-bottom: 20px;
+  ::ng-deep .tabss {
+    .mat-mdc-tab-body {
+      height: 75vh !important;
+      overflow-y: auto;
+    }
   }
+
+  .tabss {
+    height: 120vh;
+  }
+}
+
+::ng-deep {
+  text {
+    font-size: 16px !important;
+    margin: 10px;
+  }
+}
+
+.deudor,
+.pagador {
+  width: 30%;
+  min-width: 30%;
+  max-width: 30%;
+}
+
+.cantidad {
+  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.pagar {
+  width: 10%;
+  min-width: 10%;
+  max-width: 10%;
+}
+
+.cabecera {
+  background-color: #e0e0e0 !important;
+  color: black;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.boton-pagar {
+  color: #009fb7 !important;
+}
+
+.mat-icon {
+  color: inherit;
 }

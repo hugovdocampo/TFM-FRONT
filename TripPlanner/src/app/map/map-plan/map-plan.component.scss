@@ -1,7 +1,7 @@
 .map-wrap {
   position: relative;
   width: 100%;
-  height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
+  height: 100vh;
 }
 
 .map {
@@ -30,27 +30,34 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 10px;
-  left: 10px;
+  top: 4vh;
   z-index: 2;
-  background-color: white;
   border-radius: 5px;
   padding: 15px;
+}
+
+::ng-deep {
+  .mapboxgl-ctrl-top-right {
+    top: 5vh;
+    right: 20px;
+  }
 }
 
 .plan-list-container {
   max-height: 30vh;
   overflow-y: auto;
+  background-color: white;
+  border-radius: 25px;
+  padding: 20px;
 }
 
 .toggle-btn {
   display: flex;
-
-  label{
+  label {
     margin-left: 5px;
     font-size: medium;
   }
-  p{
+  p {
     margin: 0;
   }
   align-items: center;
@@ -59,9 +66,23 @@
 }
 
 mat-list-option {
-  span, p{
+  span,
+  p {
     display: inline;
     align-items: center;
     font-size: medium;
   }
+}
+
+.boton-planes {
+  position: sticky;
+  position: sticky;
+  border-radius: 25px;
+  padding: 11px;
+  display: flex;
+  color: #009fb7;
+  background-color: white;
+  border: 0.5px solid #b3b5b5;
+  justify-content: center;
+  margin-bottom: 20px;
 }

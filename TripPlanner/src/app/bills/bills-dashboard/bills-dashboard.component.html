@@ -1,5 +1,5 @@
-<mat-tab-group animationDuration="500ms">
-  <mat-tab label="Balances" class="tab-ancho">
+<mat-tab-group animationDuration="500ms" style="height: 120vh;" class="tabss">
+  <mat-tab label="Balances" class="tab-ancho tab">
     <h3 class="titulo">Resumen de gastos</h3>
     <div class="chart-container graficas">
       <ngx-charts-bar-horizontal
@@ -18,33 +18,34 @@
         [showDataLabel]="true"
         [showGridLines]="true"
         [roundEdges]="true"
+        [dataLabelFormatting]="dataLabelFormatting"
       >
       </ngx-charts-bar-horizontal>
     </div>
 
     <div class="payments-container">
-      <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+      <table mat-table [dataSource]="transactions" class="mat-elevation-z8 tabla">
         <ng-container matColumnDef="debtor">
-          <th mat-header-cell *matHeaderCellDef>Deudor</th>
-          <td mat-cell *matCellDef="let transaction">
+          <th mat-header-cell *matHeaderCellDef class="deudor cabecera">Deudor</th>
+          <td mat-cell *matCellDef="let transaction" class="deudor">
             {{ transaction.debtor }}
           </td>
         </ng-container>
         <ng-container matColumnDef="creditor">
-          <th mat-header-cell *matHeaderCellDef>Pagador</th>
-          <td mat-cell *matCellDef="let transaction">
+          <th mat-header-cell *matHeaderCellDef class="pagador cabecera">Pagador</th>
+          <td mat-cell *matCellDef="let transaction" class="pagador">
             {{ transaction.creditor }}
           </td>
         </ng-container>
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
-          <td mat-cell *matCellDef="let transaction">
+          <th mat-header-cell *matHeaderCellDef class="cantidad cabecera">Cantidad</th>
+          <td mat-cell *matCellDef="let transaction" class="cantidad">
             {{ transaction.amount | currency : "EUR" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="paid">
-          <th mat-header-cell *matHeaderCellDef>Pagar</th>
-          <td mat-cell *matCellDef="let transaction">
+          <th mat-header-cell *matHeaderCellDef class="pagar cabecera">Pagar</th>
+          <td mat-cell *matCellDef="let transaction" class="pagar">
             <button
               mat-icon-button
               class="boton-pagar"
@@ -67,27 +68,32 @@
           [results]="budgetData"
           [doughnut]="true"
           [arcWidth]="0.25"
-          [animations]="true">
+          [animations]="true"
+          [customColors]="customColors2"
+          [gradient]="false"
+          [labels]="showLabels"
+        >
         </ngx-charts-pie-chart>
       </div>
       <div class="spending-details">
         <div style="display: flex; flex-direction: row">
           <div class="spent">
-            <p style="font-size: 16px; font-weight: bold;">Gastado</p>
+            <p style="font-size: 16px; font-weight: bold">Gastado</p>
             <h3>{{ spentAmount | currency : "EUR" }}</h3>
           </div>
           <div class="budget-info">
             <div class="budget-amount">
-              <p style="font-size: 16px; font-weight: bold;">Disponible</p>
+              <p style="font-size: 16px; font-weight: bold">Disponible</p>
               <h3>{{ availableAmount | currency : "EUR" }}</h3>
             </div>
           </div>
         </div>
         <div class="days-left">
-          <p style="font-size: 16px; font-weight: bold;">Días restantes</p>
-          <div style="display: flex; flex-direction: row;">
-            <mat-icon style="margin-right: 10px; font-size: 26px;">event</mat-icon>
-            <h3 style="font-size: 26px;" >{{ daysLeft }}</h3>
+          <p style="font-size: 16px; font-weight: bold">Días restantes</p>
+          <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: -2vh;">
+            <mat-icon style="margin-right: 10px; font-size: 26px"
+              >event</mat-icon>
+            <h3 style="font-size: 26px;">{{ daysLeft }}</h3>
           </div>
         </div>
       </div>
@@ -118,8 +124,9 @@
           <button
             mat-fab
             class="boton-add"
-            color="primary"
-            (click)="openAddExpenseDialog()">
+            color="accent"
+            (click)="openAddExpenseDialog()"
+          >
             <mat-icon>add</mat-icon>
           </button>
         </div>

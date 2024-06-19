@@ -68,10 +68,16 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #007bff;
+  background-color: #009fb7;
   color: white;
 }
 
 .add-travel-button mat-icon {
   font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .add-travel-button {
+    margin-bottom: 10vw;
+  }
 }

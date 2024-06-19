@@ -26,6 +26,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   markers: Marker[] = [];
 
   showPlan = true;
+  showPlanList = false;
 
   planesOrderByDate: Map<string, { color: string; planes: PlanDetalleDto[] }> =
     new Map();
@@ -176,6 +177,10 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
     });
+  }
+
+  togglePlanList() {
+    this.showPlanList = !this.showPlanList;
   }
 
   private colorArray = [
