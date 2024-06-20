@@ -12,7 +12,7 @@ import type {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { ViajeDetalleDto, ViajeDto } from '../../model';
+import type { ViajeDetalleDto, ViajeDto, ViajeRequest } from '../../model';
 
 type HttpClientOptions = {
   headers?:
@@ -64,10 +64,10 @@ export class ViajeControllerService {
     return this.http.get<TData>(`/viajes`, options);
   }
   createViaje<TData = number>(
-    createViajeBody: number,
+    viajeRequest: ViajeRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/viajes`, createViajeBody, options);
+    return this.http.post<TData>(`/viajes`, viajeRequest, options);
   }
   findViajesByUserId<TData = ViajeDto[]>(
     idUsuario: number,

@@ -77,7 +77,8 @@ export class AuthComponent implements OnInit {
             duration: 10000,
             verticalPosition: 'top'
           });
-          localStorage.setItem('access_token', response.token); // Asegúrate de ajustar la propiedad según tu respuesta
+          localStorage.setItem('access_token', response.token); 
+          localStorage.setItem('userEmail', email);
           this.router.navigate(['/']); // Redirigir a la página principal u otra página
         },
         error: error => {

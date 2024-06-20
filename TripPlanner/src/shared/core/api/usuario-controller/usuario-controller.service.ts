@@ -12,7 +12,11 @@ import type {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { UsuarioDto } from '../../model';
+import type {
+  FindUsuariosParams,
+  UsuarioDetalle,
+  UsuarioDto,
+} from '../../model';
 
 type HttpClientOptions = {
   headers?:
@@ -69,6 +73,15 @@ export class UsuarioControllerService {
   ): Observable<TData> {
     return this.http.post<TData>(`/usuarios`, usuarioDto, options);
   }
+  findUsuarios<TData = UsuarioDetalle[]>(
+    params: FindUsuariosParams,
+    options?: HttpClientOptions,
+  ): Observable<TData> {
+    return this.http.get<TData>(`/usuarios/search`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
+  }
 }
 
 export type GetUsuarioClientResult = NonNullable<UsuarioDto>;
@@ -76,3 +89,4 @@ export type UpdateUsuarioClientResult = NonNullable<void>;
 export type DeleteUsuarioClientResult = NonNullable<void>;
 export type GetUsuariosClientResult = NonNullable<UsuarioDto[]>;
 export type CreateUsuarioClientResult = NonNullable<number>;
+export type FindUsuariosClientResult = NonNullable<UsuarioDetalle[]>;

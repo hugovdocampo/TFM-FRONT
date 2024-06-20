@@ -6,6 +6,7 @@
  */
 
 export * from './findPlanesByIdViajeParams';
+export * from './findUsuariosParams';
 export * from './grantedAuthority';
 export * from './horarioDto';
 export * from './loginResponse';
@@ -20,6 +21,8 @@ export * from './registerUserDto';
 export * from './ticketDto';
 export * from './ticketRequest';
 export * from './ubicacionDto';
+export * from './usuarioDetalle';
 export * from './usuarioDto';
 export * from './viajeDetalleDto';
 export * from './viajeDto';
+export * from './viajeRequest';

@@ -5,8 +5,6 @@
  * OpenAPI spec version: v0
  */
 
-export interface ViajeDto {
-  id?: number;
-  idHorario?: number;
-  titulo?: string;
-}
+export type FindUsuariosParams = {
+  idViaje: number;
+};

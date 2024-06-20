@@ -5,8 +5,8 @@
  * OpenAPI spec version: v0
  */
 
-export interface ViajeDto {
+export interface UsuarioDetalle {
+  email?: string;
+  fullName?: string;
   id?: number;
-  idHorario?: number;
-  titulo?: string;
 }

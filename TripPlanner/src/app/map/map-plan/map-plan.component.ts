@@ -48,7 +48,6 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this._planesController.findPlanesByIdViaje({idViaje: 1}).subscribe((planes: PlanDetalleDto[]) => {
-      console.log(planes);
       this.planesOrderByDate = this.organizarPlanesPorFecha(planes);
       this.selectedOptions = Array.from(this.planesOrderByDate.values());
     });
@@ -217,4 +216,8 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
     '#FF4D4D',
     '#6666FF',
   ];
+
+  createNewPlan() {
+    this.dialog.open(PlanComponent, {data: {idViaje: 5, nombre: '', descripcion: ''}});
+  }
 }

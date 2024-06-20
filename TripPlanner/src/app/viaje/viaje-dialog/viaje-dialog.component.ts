@@ -6,6 +6,7 @@ import { StepperOrientation } from '@angular/cdk/stepper';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper } from '@angular/material/stepper';
+import { ViajeControllerService } from 'src/shared/core/api/viaje-controller/viaje-controller.service';
 
 @Component({
   selector: 'app-viaje-dialog',
@@ -38,7 +39,8 @@ export class ViajeDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ViajeDialogComponent>,
     private _formBuilder: FormBuilder,
-    breakpointObserver: BreakpointObserver
+    breakpointObserver: BreakpointObserver,
+    private _viajeController: ViajeControllerService
   ) {
     this.initializeFormGroups();
     this.stepperOrientation = breakpointObserver
@@ -89,10 +91,23 @@ export class ViajeDialogComponent {
       this.proposalForm.reset({ presupuesto: 0, valoracion: 0 });
     }
     this.panelOpenState = false;
-    console.log(this.panelOpenState);
   }
 
   onCreate(): void {
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      this._viajeController.createViaje({
+        titulo: this.firstFormGroup.get('travelTitle')?.value,
+        fechaFin: this.firstFormGroup.get('endDate')?.value,
+        fechaInicio: this.firstFormGroup.get('startDate')?.value,
+        userEmail: userEmail,
+        emailParticipantes: this.selectedUsers,
+        propuestas: this.propuestas,
+      }).subscribe((response) => {
+        console.log(response);
+      });
+    }
+
     this.dialogRef.close({
       title: this.firstFormGroup.get('travelTitle')?.value,
       users: this.selectedUsers,

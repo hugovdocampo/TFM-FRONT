@@ -4,8 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { PagoDto } from 'src/shared/core/model/index';
+import { PagoDto, UsuarioDetalle, UsuarioDto } from 'src/shared/core/model/index';
 import { PagoControllerService } from 'src/shared/core/api/pago-controller/pago-controller.service';
+import { UsuarioControllerService } from 'src/shared/core/api/usuario-controller/usuario-controller.service';
 
 @Component({
     selector: 'app-pago',
@@ -24,19 +25,16 @@ import { PagoControllerService } from 'src/shared/core/api/pago-controller/pago-
 export class PagoComponent { 
 
     pagoForm: FormGroup;
+    idViaje?: number;
     @Output() pagoChange = new EventEmitter<PagoDto>();
 
   // Lista de usuarios (debería ser reemplazada por datos reales)
-  usuarios = [
-    { id: 1, nombre: 'Usuario 1' },
-    { id: 2, nombre: 'Usuario 2' },
-    { id: 3, nombre: 'Usuario 3' },
-    { id: 4, nombre: 'Usuario 4' }
-  ];
+  usuarios: UsuarioDetalle[] = [];
 
   constructor(private fb: FormBuilder,
-    private _pagosController: PagoControllerService
-  ) {
+    private _pagosController: PagoControllerService,
+    private _usuariosController: UsuarioControllerService) 
+   {
     this.pagoForm = this.fb.group({
       total: [null, [Validators.pattern(/^[0-9]*(\.[0-9]{0,2})?$/), Validators.required]],
       idPagador: [null, Validators.required],
@@ -55,13 +53,21 @@ export class PagoComponent {
     this.pagoForm.updateValueAndValidity();
   }
 
-  loadForm(idPago: number | undefined): void {
+  loadForm(idPago: number | undefined, idViaje: number | undefined): void {
+    /*
     if (!idPago) {
       return;
     }
     this._pagosController.getPago(idPago).subscribe(pago => {
       this.pagoForm.patchValue(pago, { emitEvent: false });
     });
+    */
+    this.idViaje = idViaje;
+    if (this.idViaje) {
+      this._usuariosController.findUsuarios({idViaje: this.idViaje}).subscribe(usuarios => {
+        this.usuarios = usuarios;
+      });
+    }
   }
 
   onTotalInput(event: any): void {
