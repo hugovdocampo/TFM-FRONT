@@ -1,12 +1,12 @@
 <div class="ticket-container" [ngClass]="{'mobile': !isDesktop, 'desktop': isDesktop}">
-    <div class="ticket-banner" [style.background-image]="'url(' + getBannerImage(category) + ')'"></div>
+    <div class="ticket-banner" [style.background-image]="'url(' + getBannerImage(ticket.categoria) + ')'"></div>
     <div class="ticket-info">
         <div class="event-header">
-            <span class="event-name">{{ event.name }}</span>
-            <mat-chip class="category-chip" [ngStyle]="{'background-color': getChipColor(category)}">
+            <span class="event-name">{{ ticket.nombre }}</span>
+            <mat-chip class="category-chip" [ngStyle]="{'background-color': getChipColor(ticket.categoria)}">
                 <div class="chip">
-                    <mat-icon>{{ getCategoryIcon(category) }}</mat-icon>
-                    {{ category | uppercase }}
+                    <mat-icon>{{ getCategoryIcon(ticket.categoria) }}</mat-icon>
+                    {{ ticket.categoria | uppercase }}
                 </div>
             </mat-chip>
         </div>
@@ -14,23 +14,23 @@
             <div class="event-location-time">
                 <div class="ubicacion">
                     <mat-icon>map</mat-icon>
-                    <span style="margin-bottom: 0;">{{ event.location }}</span>
+                    <span style="margin-bottom: 0;">{{ ticket.ubicacion?.direccion }}</span>
                 </div>
-                <span class="fechas">{{ event.startTime | date: 'short' }} - {{ event.endTime | date: 'short' }}</span>
+                <span class="fechas">{{ ticket.horario?.inicio | date: 'short' }} - {{ ticket.horario?.fin | date: 'short' }}</span>
             </div>
             <div class="event-description">
-                {{ event.description | slice:0:300 }}
-                <span *ngIf="showFullDescription">{{ event.description.slice(300) }}</span>
+                {{ ticket.descripcion | slice:0:300 }}
+                <span *ngIf="showFullDescription">{{ ticket.descripcion?.slice(300) }}</span>
                 <mat-icon (click)="toggleDescription()" class="more">
                   {{ showFullDescription ? 'expand_less' : 'expand_more' }}
                 </mat-icon>
             </div>
-            <div *ngIf="event.qrCode && isDesktop" class="qr-code">
-                <img [src]="event.qrCode" alt="QR Code">
+            <div *ngIf="ticket.qr && isDesktop" class="qr-code">
+                <img [src]="ticket.qr" alt="QR Code">
             </div>
         </div>
-        <div *ngIf="event.qrCode && !isDesktop" class="qr-code-mobile">
-            <img [src]="event.qrCode" alt="QR Code">
+        <div *ngIf="ticket.qr && !isDesktop" class="qr-code-mobile">
+            <img [src]="ticket.qr" alt="QR Code">
         </div>
         <hr>
         <div class="enjoy-message">Disfruta ;)</div>

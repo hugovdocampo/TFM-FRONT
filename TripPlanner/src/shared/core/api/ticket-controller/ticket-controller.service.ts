@@ -69,6 +69,12 @@ export class TicketControllerService {
   ): Observable<TData> {
     return this.http.post<TData>(`/tickets`, ticketRequest, options);
   }
+  getTicketsByViaje<TData = TicketDto[]>(
+    id: number,
+    options?: HttpClientOptions,
+  ): Observable<TData> {
+    return this.http.get<TData>(`/tickets/viaje/${id}`, options);
+  }
 }
 
 export type GetTicketClientResult = NonNullable<TicketDto>;
@@ -76,3 +82,4 @@ export type UpdateTicketClientResult = NonNullable<void>;
 export type DeleteTicketClientResult = NonNullable<void>;
 export type GetTicketsClientResult = NonNullable<TicketDto[]>;
 export type CreateTicketClientResult = NonNullable<number>;
+export type GetTicketsByViajeClientResult = NonNullable<TicketDto[]>;

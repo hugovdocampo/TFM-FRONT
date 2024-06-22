@@ -76,7 +76,10 @@ export class MenuInferiorComponent implements OnInit {
       console.error('Email no encontrado en localStorage');
     }
   }
-  onOptionSelected($event: Event) {
-    throw new Error('Method not implemented.');
+  onOptionSelected(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedId = Number(selectElement.value);
+    localStorage.setItem('travelId', selectedId.toString());
+    this.router.navigate(['/tickets']);
   }
 }

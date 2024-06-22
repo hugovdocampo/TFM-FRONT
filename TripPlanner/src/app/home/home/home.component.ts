@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ViajeDialogComponent } from 'src/app/viaje/viaje-dialog/viaje-dialog.component';
 import { UsuarioControllerService } from 'src/shared/core/api/usuario-controller/usuario-controller.service';
 import { ViajeControllerService } from 'src/shared/core/api/viaje-controller/viaje-controller.service';
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private viajeService: ViajeControllerService,
     private userService: UsuarioControllerService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -86,4 +88,10 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  setAsTravel(travelId: number): void {
+    localStorage.setItem('travelId', travelId.toString());
+    this.router.navigate(['/tickets']);
+  }
+
 }

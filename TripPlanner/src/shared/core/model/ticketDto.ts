@@ -4,12 +4,18 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
+import type { HorarioDto } from './horarioDto';
+import type { UbicacionDto } from './ubicacionDto';
 
 export interface TicketDto {
   asiento?: string;
+  categoria?: string;
+  descripcion?: string;
   documento?: string[];
+  horario?: HorarioDto;
   id?: number;
   idPlan?: number;
   nombre?: string;
   qr?: string;
+  ubicacion?: UbicacionDto;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthServiceToken } from 'src/app/auth/auth-service.service';
 import { UsuarioControllerService } from 'src/shared/core/api/usuario-controller/usuario-controller.service';
@@ -20,6 +21,7 @@ export class MenuLateralComponent implements OnInit {
     private viajeService: ViajeControllerService,
     private userService: UsuarioControllerService,
     private authService: AuthServiceToken,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -77,7 +79,10 @@ export class MenuLateralComponent implements OnInit {
       console.error('Email no encontrado en localStorage');
     }
   }
-  onOptionSelected($event: Event) {
-    throw new Error('Method not implemented.');
+  onOptionSelected(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedId = Number(selectElement.value);
+    localStorage.setItem('travelId', selectedId.toString());
+    this.router.navigate(['/tickets']);
   }
 }
