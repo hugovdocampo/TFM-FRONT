@@ -16,7 +16,19 @@
     gap: 20px;
     padding-bottom: 90px;
   }
-
+  .borrar {
+    z-index: 10000;
+    color: white;
+    position: absolute;
+    margin-top: 10px;
+  }
+  .edit {
+    z-index: 10000;
+    color: white;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 35px;
+  }
   .profile {
     height: 300px;
     border-radius: 20px;

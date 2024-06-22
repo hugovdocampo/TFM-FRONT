@@ -6,9 +6,15 @@
   <mat-divider class="divisor"></mat-divider>
   <div class="profile-grid">
     <div class="profile" *ngFor="let travel of travels" 
-         [style.backgroundImage]="'url(' + travel.imageUrl + ')'">
+         [style.backgroundImage]="'url(' + travel.imagen + ')'">
+        <button class="borrar" mat-icon-button (click)="deleteTravel(travel.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button class="edit" mat-icon-button (click)="editTravel(travel.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
       <div class="overlay">
-        <div class="title">{{ travel.title }}</div>
+        <div class="title">{{ travel.titulo }}</div>
       </div>
     </div>
   </div>

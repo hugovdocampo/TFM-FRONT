@@ -9,8 +9,10 @@ import type { PlanDetalleDto } from './planDetalleDto';
 import type { PropuestaDto } from './propuestaDto';
 
 export interface ViajeDetalleDto {
+  emailParticipantes?: string[];
   horario?: HorarioDto;
   id?: number;
   planes?: PlanDetalleDto[];
   propuestas?: PropuestaDto[];
+  titulo?: string;
 }

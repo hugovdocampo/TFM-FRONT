@@ -47,10 +47,10 @@ export class ViajeControllerService {
   }
   updateViaje<TData = void>(
     id: number,
-    viajeDto: ViajeDto,
+    viajeRequest: ViajeRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/viajes/${id}`, viajeDto, options);
+    return this.http.put<TData>(`/viajes/${id}`, viajeRequest, options);
   }
   deleteViaje<TData = void>(
     id: number,

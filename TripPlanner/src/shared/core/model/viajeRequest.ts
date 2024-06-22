@@ -10,6 +10,7 @@ export interface ViajeRequest {
   emailParticipantes?: string[];
   fechaFin?: string;
   fechaInicio?: string;
+  imagen?: string;
   propuestas?: PropuestaDto[];
   titulo?: string;
   userEmail?: string;

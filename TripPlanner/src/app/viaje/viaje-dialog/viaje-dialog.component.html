@@ -1,4 +1,5 @@
-<h1 mat-dialog-title class="titulo">Crear Nuevo Viaje</h1>
+<h1 *ngIf="!this.data.travelId"  mat-dialog-title class="titulo">Crear Nuevo Viaje</h1>
+<h1 *ngIf="this.data.travelId"  mat-dialog-title class="titulo">Editar Viaje</h1>
 
 <div mat-dialog-content>
   <mat-stepper #stepper [linear]="true" [orientation]="(stepperOrientation | async)!">
@@ -26,7 +27,7 @@
         </div>
         <div class="stepper-navigation">
             <div class="step-dots">
-              <div *ngFor="let step of stepper?._steps; let i = index" class="step-dot" [class.active]="i === stepper.selectedIndex"></div>
+              <div *ngFor="let step of steps; let i = index" class="step-dot" [class.active]="i === stepper.selectedIndex"></div>
             </div>
             <button mat-icon-button (click)="stepper.next()" *ngIf="stepper">
                 <mat-icon>chevron_right</mat-icon>
@@ -70,27 +71,38 @@
     <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>Añadir Propuestas</ng-template>
         <mat-accordion>
-          <mat-expansion-panel *ngFor="let proposal of propuestas">
+          <mat-expansion-panel *ngFor="let proposal of propuestas; let i = index">
             <mat-expansion-panel-header style="border-bottom-style: ridge;">
-              <mat-panel-title style="font-size: 16px; font-weight: bold; color: rgb(140, 134, 134);">
+              <mat-panel-title style="font-size: 16px; font-weight: bold; color: rgb(140, 134, 134);display: flex; justify-content: flex-start;">
                 {{ proposal.nombre }}
               </mat-panel-title>
+              <mat-panel-description style="display: flex; justify-content: flex-end;">
+                <button mat-icon-button (click)="editPropuesta(i)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deletePropuesta(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-panel-description>
             </mat-expansion-panel-header>
             <p>{{ proposal.descripcion }}</p>
             <p><strong>Presupuesto:</strong> {{ proposal.presupuesto | currency }}</p>
             <p><strong>Valoración:</strong> {{ proposal.valoracion }}</p>
           </mat-expansion-panel>
   
-          <mat-expansion-panel>
+          <mat-expansion-panel [expanded]="isEditingProposal" >
             <mat-expansion-panel-header>
-              <mat-panel-title>
+              <mat-panel-title *ngIf="!isEditingProposal">
                 + Propuesta
+              </mat-panel-title>
+              <mat-panel-title *ngIf="isEditingProposal">
+                Editar proupuesta
               </mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="proposalForm">
               <mat-form-field appearance="fill">
                 <mat-label>Título</mat-label>
-                <input matInput formControlName="titulo">
+                <input matInput formControlName="nombre">
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Descripción</mat-label>
@@ -105,7 +117,7 @@
                 <input matInput type="number" formControlName="valoracion" min="0" max="5">
               </mat-form-field>
               <div style="display: flex; justify-content: flex-end; width: 100%;">
-                <button mat-button type="button" (click)="addNewPropuesta()" class="propuesta">Añadir</button>
+                <button mat-button type="button" (click)="addNewPropuesta()" class="propuesta">Aceptar</button>
               </div>
               </form>
           </mat-expansion-panel>
@@ -129,5 +141,6 @@
 
 <div mat-dialog-actions class="botones">
   <button mat-button (click)="onCancel()" class="boton1">Cancelar</button>
-  <button mat-button (click)="onCreate()" class="boton2" [disabled]="!isLastStep">Crear</button>
+  <button mat-button (click)="onCreate()" class="boton2" [disabled]="!isLastStep" *ngIf="this.data.travelId">Editar</button>
+  <button mat-button (click)="onCreate()" class="boton2" [disabled]="!isLastStep" *ngIf="!this.data.travelId">Crear</button>
 </div>

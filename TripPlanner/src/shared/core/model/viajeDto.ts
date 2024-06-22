@@ -8,5 +8,6 @@
 export interface ViajeDto {
   id?: number;
   idHorario?: number;
+  imagen?: string;
   titulo?: string;
 }

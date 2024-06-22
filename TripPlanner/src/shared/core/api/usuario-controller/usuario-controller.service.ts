@@ -82,6 +82,15 @@ export class UsuarioControllerService {
       params: { ...params, ...options?.params },
     });
   }
+  findUsuarioByEmail<TData = UsuarioDto>(
+    email: string,
+    options?: HttpClientOptions,
+  ): Observable<TData> {
+    return this.http.get<TData>(
+      `/usuarios/findUsuarioByEmail/${email}`,
+      options,
+    );
+  }
 }
 
 export type GetUsuarioClientResult = NonNullable<UsuarioDto>;
@@ -90,3 +99,4 @@ export type DeleteUsuarioClientResult = NonNullable<void>;
 export type GetUsuariosClientResult = NonNullable<UsuarioDto[]>;
 export type CreateUsuarioClientResult = NonNullable<number>;
 export type FindUsuariosClientResult = NonNullable<UsuarioDetalle[]>;
+export type FindUsuarioByEmailClientResult = NonNullable<UsuarioDto>;
