@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthenticationControllerService } from 'src/shared/core/api/authentication-controller/authentication-controller.service';
 
 @Component({
   selector: 'app-menu-inferior',
   templateUrl: './menu-inferior.component.html',
   styleUrls: ['./menu-inferior.component.scss'],
 })
-export class MenuInferiorComponent {
+export class MenuInferiorComponent  implements OnInit{
+  token$!: Observable<string | null>;
+
   links = [
     { url: '/', icon: 'home' },
     { url: '/map', icon: 'map' },
@@ -17,7 +21,11 @@ export class MenuInferiorComponent {
   
   activeLink: string = '/'; 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthenticationControllerService) {}
+
+   ngOnInit() {
+    this.token$ = this.authService.getToken();
+  }
 
   navigate(url: string): void {
     this.router.navigate([url]);
@@ -25,7 +33,7 @@ export class MenuInferiorComponent {
   }
 
   public logout(): void {
-    localStorage.removeItem('access_token');
+    this.authService.clearToken();
     this.router.navigate(['/login']);
   }
 }

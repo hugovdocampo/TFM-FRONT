@@ -77,7 +77,8 @@ export class AuthComponent implements OnInit {
             duration: 10000,
             verticalPosition: 'top'
           });
-          localStorage.setItem('access_token', response.token); 
+          this.authService.setToken(response.token);
+          //localStorage.setItem('access_token', response.token); 
           localStorage.setItem('userEmail', email);
           this.router.navigate(['/']); // Redirigir a la página principal u otra página
         },
@@ -87,7 +88,8 @@ export class AuthComponent implements OnInit {
             duration: 10000,
             verticalPosition: 'top'
           });
-          localStorage.removeItem('access_token');
+          //localStorage.removeItem('access_token');
+          this.authService.clearToken();
         }
       });
     } else {

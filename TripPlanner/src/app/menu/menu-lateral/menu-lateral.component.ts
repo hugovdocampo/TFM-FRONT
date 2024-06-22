@@ -1,12 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { AuthenticationControllerService } from 'src/shared/core/api/authentication-controller/authentication-controller.service';
 
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
   styleUrls: ['./menu-lateral.component.scss'],
 })
-export class MenuLateralComponent {
+export class MenuLateralComponent implements OnInit {
+  token$!: Observable<string | null>;
+
+  constructor(private authService: AuthenticationControllerService) {}
+
+  ngOnInit() {
+    this.token$ = this.authService.getToken();
+  }
+
   @ViewChild('snav')
   sidenav!: MatSidenav;
 
@@ -26,7 +36,7 @@ export class MenuLateralComponent {
   }
 
   public logout(): void {
-    localStorage.removeItem('access_token');
+    this.authService.clearToken();
     window.location.href = '/login';
   }
 }

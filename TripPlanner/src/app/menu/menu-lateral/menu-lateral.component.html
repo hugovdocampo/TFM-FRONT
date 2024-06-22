@@ -1,4 +1,4 @@
-<header style="display: flex; justify-content: space-between; align-items: center; background-color: white; padding: 10px 20px;">
+<header style="display: flex; justify-content: space-between; align-items: center; background-color: white; padding: 10px 20px;" *ngIf="token$ | async as token">
   <div style="display: flex; align-items: center;">
     <button mat-button (click)="isExpanded = !isExpanded" color="transparent">
       <mat-icon class="boton-menu">menu</mat-icon>
