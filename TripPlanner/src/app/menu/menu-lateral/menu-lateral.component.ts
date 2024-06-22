@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
-import { AuthenticationControllerService } from 'src/shared/core/api/authentication-controller/authentication-controller.service';
+import { AuthServiceToken } from 'src/app/auth/auth-service.service';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -11,7 +11,7 @@ import { AuthenticationControllerService } from 'src/shared/core/api/authenticat
 export class MenuLateralComponent implements OnInit {
   token$!: Observable<string | null>;
 
-  constructor(private authService: AuthenticationControllerService) {}
+  constructor(private authService: AuthServiceToken) {}
 
   ngOnInit() {
     this.token$ = this.authService.getToken();

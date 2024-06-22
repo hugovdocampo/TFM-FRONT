@@ -6,6 +6,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AuthenticationControllerService } from 'src/shared/core/api/authentication-controller/authentication-controller.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthServiceToken } from './auth-service.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthenticationControllerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authServiceToken: AuthServiceToken
   ) {
     this.authForm = this.fb.group({
       username: [''],
@@ -77,7 +79,7 @@ export class AuthComponent implements OnInit {
             duration: 10000,
             verticalPosition: 'top'
           });
-          this.authService.setToken(response.token);
+          this.authServiceToken.setToken(response.token);
           //localStorage.setItem('access_token', response.token); 
           localStorage.setItem('userEmail', email);
           this.router.navigate(['/']); // Redirigir a la página principal u otra página
@@ -89,7 +91,7 @@ export class AuthComponent implements OnInit {
             verticalPosition: 'top'
           });
           //localStorage.removeItem('access_token');
-          this.authService.clearToken();
+          this.authServiceToken.clearToken();
         }
       });
     } else {

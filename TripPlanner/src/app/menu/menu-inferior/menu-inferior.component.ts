@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationControllerService } from 'src/shared/core/api/authentication-controller/authentication-controller.service';
+import { AuthServiceToken } from 'src/app/auth/auth-service.service';
 
 @Component({
   selector: 'app-menu-inferior',
@@ -21,7 +21,7 @@ export class MenuInferiorComponent  implements OnInit{
   
   activeLink: string = '/'; 
 
-  constructor(private router: Router, private authService: AuthenticationControllerService) {}
+  constructor(private router: Router, private authService: AuthServiceToken) {}
 
    ngOnInit() {
     this.token$ = this.authService.getToken();
