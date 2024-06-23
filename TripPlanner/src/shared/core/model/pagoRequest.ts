@@ -5,9 +5,11 @@
  * OpenAPI spec version: v0
  */
 import type { PagoDto } from './pagoDto';
+import type { UsuarioDto } from './usuarioDto';
 
 export interface PagoRequest {
   idUsuario?: number;
   pagador?: boolean;
   pagoDto?: PagoDto;
+  usuariosImplicados?: UsuarioDto[];
 }

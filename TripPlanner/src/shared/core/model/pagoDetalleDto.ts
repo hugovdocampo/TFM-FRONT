@@ -4,9 +4,12 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
+import type { HorarioDto } from './horarioDto';
 import type { UsuarioDto } from './usuarioDto';
 
 export interface PagoDetalleDto {
+  descripcion?: string;
+  horario?: HorarioDto;
   id?: number;
   idPagador?: number;
   total?: number;

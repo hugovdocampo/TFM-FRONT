@@ -73,6 +73,12 @@ export class UsuarioControllerService {
   ): Observable<TData> {
     return this.http.post<TData>(`/usuarios`, usuarioDto, options);
   }
+  getUsuariosByIdViaje<TData = UsuarioDto[]>(
+    id: number,
+    options?: HttpClientOptions,
+  ): Observable<TData> {
+    return this.http.get<TData>(`/usuarios/viaje/${id}`, options);
+  }
   findUsuarios<TData = UsuarioDetalle[]>(
     params: FindUsuariosParams,
     options?: HttpClientOptions,
@@ -98,5 +104,6 @@ export type UpdateUsuarioClientResult = NonNullable<void>;
 export type DeleteUsuarioClientResult = NonNullable<void>;
 export type GetUsuariosClientResult = NonNullable<UsuarioDto[]>;
 export type CreateUsuarioClientResult = NonNullable<number>;
+export type GetUsuariosByIdViajeClientResult = NonNullable<UsuarioDto[]>;
 export type FindUsuariosClientResult = NonNullable<UsuarioDetalle[]>;
 export type FindUsuarioByEmailClientResult = NonNullable<UsuarioDto>;

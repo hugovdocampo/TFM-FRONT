@@ -16,6 +16,7 @@ export interface UsuarioDto {
   enabled?: boolean;
   fullName?: string;
   id?: number;
+  pagador?: boolean;
   password?: string;
   updatedAt?: string;
   username?: string;

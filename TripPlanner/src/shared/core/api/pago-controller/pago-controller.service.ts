@@ -58,7 +58,9 @@ export class PagoControllerService {
   ): Observable<TData> {
     return this.http.delete<TData>(`/pagos/${id}`, options);
   }
-  getPagos<TData = PagoDto[]>(options?: HttpClientOptions): Observable<TData> {
+  getPagos<TData = PagoDetalleDto[]>(
+    options?: HttpClientOptions,
+  ): Observable<TData> {
     return this.http.get<TData>(`/pagos`, options);
   }
   createPago<TData = number>(
@@ -67,10 +69,17 @@ export class PagoControllerService {
   ): Observable<TData> {
     return this.http.post<TData>(`/pagos`, pagoRequest, options);
   }
+  getPagosByIdViaje<TData = PagoDetalleDto[]>(
+    id: number,
+    options?: HttpClientOptions,
+  ): Observable<TData> {
+    return this.http.get<TData>(`/pagos/usuario/${id}`, options);
+  }
 }
 
 export type GetPagoClientResult = NonNullable<PagoDetalleDto>;
 export type UpdatePagoClientResult = NonNullable<void>;
 export type DeletePagoClientResult = NonNullable<void>;
-export type GetPagosClientResult = NonNullable<PagoDto[]>;
+export type GetPagosClientResult = NonNullable<PagoDetalleDto[]>;
 export type CreatePagoClientResult = NonNullable<number>;
+export type GetPagosByIdViajeClientResult = NonNullable<PagoDetalleDto[]>;

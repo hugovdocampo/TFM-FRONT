@@ -269,3 +269,65 @@
 .mat-icon {
   color: inherit;
 }
+
+.elemento-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.expense-details {
+  flex: 1;
+  width: 70%;
+  min-width: 70%;
+  max-width: 70%;
+  margin-left: 14px;
+}
+
+.amount-and-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.expense-amount {
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 8px;
+}
+
+.buttons-container button {
+  color: rgba(240, 74, 74, 0.8);
+}
+
+.edit-button {
+  color: #009fb7 !important;
+}
+
+@media (min-width: 600px) {
+  .list-item-content {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .amount-and-buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .expense-amount {
+    margin-right: 0;
+  }
+}
