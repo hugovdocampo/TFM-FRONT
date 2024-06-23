@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthServiceToken } from 'src/app/auth/auth-service.service';
 import { UsuarioControllerService } from 'src/shared/core/api/usuario-controller/usuario-controller.service';
 import { ViajeControllerService } from 'src/shared/core/api/viaje-controller/viaje-controller.service';
+import { LocalStorageService } from '../local-storage-service.service';
 
 @Component({
   selector: 'app-menu-inferior',
@@ -14,6 +15,7 @@ import { ViajeControllerService } from 'src/shared/core/api/viaje-controller/via
 export class MenuInferiorComponent implements OnInit {
   token$!: Observable<string | null>;
   titulos: any[] = [];
+  selectedTravelId!: string | null;
 
   links = [
     { url: '/', icon: 'home' },
@@ -31,11 +33,17 @@ export class MenuInferiorComponent implements OnInit {
     private userService: UsuarioControllerService,
     private authService: AuthServiceToken,
     private router: Router,
-  ) {}
+    private localStorageService: LocalStorageService,
+  ) {
+    
+  }
 
   ngOnInit() {
     this.token$ = this.authService.getToken();
     this.loadTravels();
+    this.localStorageService.watchStorage().subscribe((travelId) => {
+      this.selectedTravelId = travelId;
+    });
   }
 
   navigate(url: string): void {
@@ -76,10 +84,8 @@ export class MenuInferiorComponent implements OnInit {
       console.error('Email no encontrado en localStorage');
     }
   }
-  onOptionSelected(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedId = Number(selectElement.value);
-    localStorage.setItem('travelId', selectedId.toString());
+  onOptionSelected(selectedId: string) {
+    this.localStorageService.setItem('travelId', selectedId.toString());
     this.router.navigate(['/tickets']);
   }
 }

@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="derecha">
-      <select class="select" (change)="onOptionSelected($event)">
+      <select class="select" [ngModel]="selectedTravelId" (ngModelChange)="onOptionSelected($event)">
         <option *ngFor="let t of titulos" [value]="t.id">{{ t.titulo }}</option>
       </select>
       <mat-icon class="boton-menu" [matMenuTriggerFor]="menu">person_outline</mat-icon>

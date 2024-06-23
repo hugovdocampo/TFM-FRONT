@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/menu/local-storage-service.service';
 import { TicketControllerService } from 'src/shared/core/api/ticket-controller/ticket-controller.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class TicketsListComponent implements OnInit {
     private router: Router,
     private renderer: Renderer2,
     private ticketService: TicketControllerService,
+    private localStorageService: LocalStorageService,
   ) {
     this.isDesktop = window.innerWidth >= 768;
     window.onresize = () => {
@@ -24,7 +26,7 @@ export class TicketsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
-    var travelId = Number(localStorage.getItem('travelId'));
+    var travelId = Number(this.localStorageService.getItem('travelId'));
     this.ticketService
       .getTicketsByViaje(travelId)
       .subscribe((tickets: any[]) => {

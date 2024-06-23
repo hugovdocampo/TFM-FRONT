@@ -9,6 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
 import { Map as MapLibre, Marker, NavigationControl, Popup } from 'maplibre-gl';
+import { LocalStorageService } from 'src/app/menu/local-storage-service.service';
 import { PlanComponent } from 'src/shared/components/plan/plan.component';
 import { PlanControllerService } from 'src/shared/core/api/plan-controller/plan-controller.service';
 import { PlanDetalleDto } from 'src/shared/core/model/index';
@@ -47,13 +48,22 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dias') dias!: MatSelectionList;
 
   ngOnInit(): void {
-    this._planesController.findPlanesByIdViaje({idViaje: 1}).subscribe((planes: PlanDetalleDto[]) => {
-      this.planesOrderByDate = this.organizarPlanesPorFecha(planes);
-      this.selectedOptions = Array.from(this.planesOrderByDate.values());
-    });
+    var travelId = Number(this.localStorageService.getItem('travelId'));
+
+    this._planesController
+      .findPlanesByIdViaje({ idViaje: travelId })
+      .subscribe((planes: PlanDetalleDto[]) => {
+        this.planesOrderByDate = this.organizarPlanesPorFecha(planes);
+        this.selectedOptions = Array.from(this.planesOrderByDate.values());
+        this.pintarPlanes(this.selectedOptions);
+      });
   }
 
-  constructor(private _planesController: PlanControllerService, public dialog: MatDialog) {}
+  constructor(
+    private _planesController: PlanControllerService,
+    public dialog: MatDialog,
+    private localStorageService: LocalStorageService,
+  ) {}
 
   ngAfterViewInit(): void {
     let map = (this.map = new MapLibre({
@@ -65,7 +75,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.map.addControl(
       new NavigationControl(this.NavigationOptions),
-      'top-right'
+      'top-right',
     );
 
     this.onSelectionChange(this.selectedOptions);
@@ -92,7 +102,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         (error) => {
           console.error('Error obteniendo la ubicación', error);
-        }
+        },
       );
     } else {
       console.error('Geolocalización no soportada por este navegador.');
@@ -100,13 +110,15 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   organizarPlanesPorFecha(
-    planes: PlanDetalleDto[]
+    planes: PlanDetalleDto[],
   ): Map<string, { color: string; planes: PlanDetalleDto[] }> {
     const map = new Map<string, { color: string; planes: PlanDetalleDto[] }>();
 
     planes.forEach((plan) => {
       if (plan.horario && plan.horario.inicio) {
-        const fechaInicio = new Date(plan.horario.inicio).toISOString().split('T')[0];
+        const fechaInicio = new Date(plan.horario.inicio)
+          .toISOString()
+          .split('T')[0];
         if (!map.has(fechaInicio)) {
           map.set(fechaInicio, {
             color:
@@ -129,7 +141,7 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRandomColor(
-    map: Map<string, { color: string; planes: PlanDetalleDto[] }>
+    map: Map<string, { color: string; planes: PlanDetalleDto[] }>,
   ): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -147,9 +159,17 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   onSelectionChange(selectedOptions: any): void {
     this.markers.forEach((marker) => marker.remove());
     this.markers = [];
-    
-    this.allSelected = selectedOptions.length === this.planesOrderByDate.size
 
+    this.allSelected = selectedOptions.length === this.planesOrderByDate.size;
+
+    this.pintarPlanes(selectedOptions);
+  }
+
+  togglePlanList() {
+    this.showPlanList = !this.showPlanList;
+  }
+
+  private pintarPlanes(selectedOptions: any) {
     selectedOptions.forEach((day: any) => {
       if (day) {
         day.planes.forEach((plan: any) => {
@@ -161,25 +181,25 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
           divElement.innerHTML = innerHtmlContent;
           divElement.appendChild(assignBtn);
           // btn.className = 'btn';
+
           assignBtn.addEventListener('click', (e) => {
-            //this.plan.loadForm(plan);
-            this.dialog.open(PlanComponent, {data: plan});
+            const dialogRef = this.dialog.open(PlanComponent, { data: plan });
+            dialogRef.afterClosed().subscribe(result => {
+              if (result?.deleted) {
+                this.ngOnInit();
+              }
+            });
           });
-          console.log("plan");
+
           this.markers.push(
             new Marker({ color: day?.color })
-              //.setLngLat(plan.ubicacion.coordenadas.split(','))
-              .setLngLat([-3.66,40.5])
+              .setLngLat(plan.ubicacion.coordenadas.split(','))
               .addTo(this.map!)
-              .setPopup(new Popup().setDOMContent(divElement))
+              .setPopup(new Popup().setDOMContent(divElement)),
           );
         });
       }
     });
-  }
-
-  togglePlanList() {
-    this.showPlanList = !this.showPlanList;
   }
 
   private colorArray = [
@@ -218,6 +238,13 @@ export class MapPlanComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   createNewPlan() {
-    this.dialog.open(PlanComponent, {data: {idViaje: 5, nombre: '', descripcion: ''}});
+    const viajeid = Number(this.localStorageService.getItem('travelId'));
+    this.dialog.open(PlanComponent, {
+      data: { idViaje: viajeid, nombre: '', descripcion: '' },
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
+    
   }
 }

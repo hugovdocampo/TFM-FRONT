@@ -280,8 +280,18 @@ mat-form-field {
 .save-button {
   display: block;
   margin-top: 24px;
-  margin-left: auto;
+  margin-left: 12px;
   background-color: #009fb7ff;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+}
+
+.delete-button {
+  display: block;
+  margin-top: 24px;
+  background-color: rgb(206, 86, 86);
   padding: 8px;
   border: 0;
   border-radius: 4px;
@@ -292,6 +302,8 @@ mat-form-field {
   padding: 2em;
   padding-top: 0;
   padding-bottom: 1em;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .dialog {

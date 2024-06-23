@@ -42,13 +42,15 @@ export class UbicacionComponent implements OnInit{
     this.ubicacionForm = this.fb.group({
       direccion: [''],
       esExterior: [false],
-      tipoDeVestimenta: [''],
+      tipoVestimenta: [''],
+      requisitos: [''],
     });
   }
 
   ngOnInit() {
     this.ubicacionForm.valueChanges.subscribe(value => {
       if (this.ubicacionForm.valid) {
+        value.requisitos = this.requisitos;
         this.ubicacionChange.emit(value);
       }
     });
@@ -71,7 +73,7 @@ export class UbicacionComponent implements OnInit{
 
     if (index >= 0) {
       this.requisitos.splice(index, 1);
-
+      this.ubicacionForm.controls['requisitos'].setValue(this.requisitos);
       this.announcer.announce(`Eliminado ${requisito}`);
     }
   }
@@ -89,6 +91,7 @@ export class UbicacionComponent implements OnInit{
     const index = this.requisitos.indexOf(requisito);
     if (index >= 0) {
       this.requisitos[index] = value;
+      this.ubicacionForm.controls['requisitos'].setValue(this.requisitos);
     }
   }
 
@@ -97,6 +100,9 @@ export class UbicacionComponent implements OnInit{
       return;
     }
     this.ubicacionForm.patchValue(ubicacion, { emitEvent: false });
+    if (ubicacion.requisitos) {
+      this.requisitos = ubicacion.requisitos;
+    }
   }
 
 }

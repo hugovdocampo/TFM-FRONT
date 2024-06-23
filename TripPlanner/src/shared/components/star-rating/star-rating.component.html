@@ -1,7 +1,7 @@
 <div class="star-rating">
-    <ng-container *ngFor="let star of stars; let i = index">
-      <mat-icon class="star" [class.filled]="star" (click)="setRating(i)">
-        {{ star ? 'star' : 'star_border' }}
-      </mat-icon>
-    </ng-container>
-</div>  
+  <ng-container *ngFor="let star of stars; let i = index">
+    <mat-icon class="star" [class.filled]="star" (click)="setRating(i)">
+      {{ star ? 'star' : 'star_border' }}
+    </mat-icon>
+  </ng-container>
+</div>
