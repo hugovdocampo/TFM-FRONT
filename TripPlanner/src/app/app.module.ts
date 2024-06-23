@@ -17,6 +17,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ViajeModule } from './viaje/viaje.module';
 import { JwtInterceptor } from 'src/shared/core/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoaderInterceptor } from 'src/shared/core/loader.interceptor';
+import { LoaderModule } from './loader/loader.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,8 +37,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ViajeModule,
     AuthComponent,
     MatSnackBarModule,
+    LoaderModule
   ],
-  providers: [DatePipe, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

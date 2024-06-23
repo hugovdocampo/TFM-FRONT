@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
-import { ApiModule } from './core/api.module';
 
 @NgModule({
   declarations: [],

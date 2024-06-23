@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/menu/local-storage-service.service';
 import { ViajeDialogComponent } from 'src/app/viaje/viaje-dialog/viaje-dialog.component';
 import { UsuarioControllerService } from 'src/shared/core/api/usuario-controller/usuario-controller.service';
 import { ViajeControllerService } from 'src/shared/core/api/viaje-controller/viaje-controller.service';
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
     private viajeService: ViajeControllerService,
     private userService: UsuarioControllerService,
     private router: Router,
+    private localStorageService: LocalStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   setAsTravel(travelId: number): void {
-    localStorage.setItem('travelId', travelId.toString());
+    this.localStorageService.setItem('travelId', travelId.toString());
     this.router.navigate(['/tickets']);
   }
 
