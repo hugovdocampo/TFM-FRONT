@@ -3,19 +3,11 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
+  OnInit,
 } from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
+import { startOfDay, endOfDay, isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -23,9 +15,10 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
-
-import { EventDialogComponent } from '../event-dialog/event-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { PlanControllerService } from 'src/shared/core/api/plan-controller/plan-controller.service';
+import { PlanDetalleDto } from 'src/shared/core/model/index';
+import { PlanComponent } from 'src/shared/components/plan/plan.component';
+import { LocalStorageService } from 'src/app/menu/local-storage-service.service';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -48,7 +41,7 @@ const colors: Record<string, EventColor> = {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -57,6 +50,7 @@ export class CalendarComponent {
     action: string;
     event: CalendarEvent;
   };
+  plan!: PlanDetalleDto;
 
   actions: CalendarEventAction[] = [
     {
@@ -70,7 +64,7 @@ export class CalendarComponent {
       label: '<i class="fas fa-fw fa-trash-alt"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
+        this.deleteEvent(event);
         this.handleEvent('Deleted', event);
       },
     },
@@ -78,62 +72,60 @@ export class CalendarComponent {
 
   refresh = new Subject<void>();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors['red'],
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors['yellow'],
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors['blue'],
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors['yellow'],
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private dialog: MatDialog) {} // Inyección de MatDialog aquí
+  constructor(
+    private dialog: MatDialog,
+    private planService: PlanControllerService,
+    private localStorageService: LocalStorageService,
+  ) {}
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  ngOnInit(): void {
+    this.loadPlans();
+  }
+
+  loadPlans(): void {
+    const travelId = Number(localStorage.getItem('travelId'));
+    this.planService
+      .findPlanesByIdViaje({ idViaje: travelId })
+      .subscribe((planes: PlanDetalleDto[]) => {
+        this.events = planes.map((plan) => this.transformPlanToEvent(plan));
+        this.refresh.next();
+      });
+  }
+
+  transformPlanToEvent(plan: PlanDetalleDto): CalendarEvent {
+    this.plan = plan;
+    return {
+      title: plan.nombre ?? '-',
+      start: new Date(plan.horario?.inicio ?? new Date()),
+      end: new Date(plan.horario?.fin ?? new Date()),
+      color: colors['blue'],
+      actions: this.actions,
+      draggable: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      meta: {
+        plan,
+      },
+    };
+  }
+
+   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
-      if (this.view === CalendarView.Week) {
-        // Si está en vista semanal cambia a vista mensual
-        this.setView(CalendarView.Month);
+      if (isSameDay(this.viewDate, date)) {
+        this.activeDayIsOpen = !this.activeDayIsOpen;
       } else {
-        // Alternar la apertura del día activo
-        this.activeDayIsOpen = isSameDay(this.viewDate, date)
-          ? !this.activeDayIsOpen
-          : true;
+        this.activeDayIsOpen = true;
+      }
+
+      // Cambiar la vista a semanal si la vista actual es mensual
+      if (this.view === CalendarView.Month) {
         this.setView(CalendarView.Week);
       }
     }
@@ -146,7 +138,11 @@ export class CalendarComponent {
   }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
-        return { ...event, start: newStart, end: newEnd };
+        return {
+          ...event,
+          start: newStart,
+          end: newEnd,
+        };
       }
       return iEvent;
     });
@@ -154,9 +150,11 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.dialog.open(EventDialogComponent, {
-      width: '20vw',
-      data: { event: event, action: action },
+    const dialogRef = this.dialog.open(PlanComponent, { data: this.plan });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.deleted) {
+        this.ngOnInit();
+      }
     });
   }
 
@@ -168,7 +166,7 @@ export class CalendarComponent {
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: colors['red'],
-        draggable: true,
+        draggable: false,
         resizable: {
           beforeStart: true,
           afterEnd: true,
@@ -187,5 +185,15 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  createNewPlan() {
+    const viajeid = Number(this.localStorageService.getItem('travelId'));
+    this.dialog.open(PlanComponent, {
+      data: { idViaje: viajeid, nombre: '', descripcion: '' },
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 }
