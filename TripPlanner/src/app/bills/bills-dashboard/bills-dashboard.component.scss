@@ -60,6 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .expense-details {
@@ -233,6 +234,11 @@
   text {
     font-size: 16px !important;
     margin: 10px;
+  }
+  .mdc-list-item__content{
+    min-width: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 

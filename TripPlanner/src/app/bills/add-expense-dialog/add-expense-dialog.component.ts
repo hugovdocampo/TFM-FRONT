@@ -56,17 +56,20 @@ export class AddExpenseDialogComponent {
     });
 
     const pagoRequest: PagoRequest = {
-      idUsuario: Number(this.paidBy), // Consider the first one as the main payer
-      pagador: true, // Assuming the main payer is the one who paid
+      idUsuario: Number(this.paidBy), 
+      pagador: true, 
       pagoDto: {
         total: this.amount,
         descripcion: this.description,
         horario: {
-          inicio: new Date().toISOString(), // Assuming current date
-          fin: new Date().toISOString(), // Assuming current date
+          inicio: new Date().toISOString(),
+          fin: new Date().toISOString(), 
         },
       },
       usuariosImplicados,
     };
+    this.pagoService.createPago(pagoRequest).subscribe(() => {
+      this.dialogRef.close();
+    });
   }
 }
