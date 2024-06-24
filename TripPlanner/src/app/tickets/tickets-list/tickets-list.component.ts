@@ -2,6 +2,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/menu/local-storage-service.service';
 import { TicketControllerService } from 'src/shared/core/api/ticket-controller/ticket-controller.service';
+import { TicketDialogComponent } from '../ticket-dialog/ticket-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tickets-list',
@@ -17,6 +19,7 @@ export class TicketsListComponent implements OnInit {
     private renderer: Renderer2,
     private ticketService: TicketControllerService,
     private localStorageService: LocalStorageService,
+    private dialog: MatDialog
   ) {
     this.isDesktop = window.innerWidth >= 768;
     window.onresize = () => {
@@ -36,7 +39,6 @@ export class TicketsListComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // Asegúrate de restablecer el estilo cuando el componente se destruya
     this.renderer.removeStyle(document.body, 'overflow-y');
   }
 
@@ -81,5 +83,19 @@ export class TicketsListComponent implements OnInit {
 
   openTicket(ticketId: number): void {
     this.router.navigate(['/ticket', ticketId]);
+  }
+
+  addNewTicket(): void {
+    this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
+    var travelId = Number(this.localStorageService.getItem('travelId'));
+    const dialogRef = this.dialog.open(TicketDialogComponent, {
+      data: { travelId: travelId }
+    });
+
+    dialogRef.afterClosed().subscribe((ticketId: any) => {
+      if (ticketId) {
+        this.router.navigate(['/ticket', ticketId]);
+      }
+    });
   }
 }

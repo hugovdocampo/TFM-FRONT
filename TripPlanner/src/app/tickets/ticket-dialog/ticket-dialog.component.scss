@@ -1,0 +1,70 @@
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+
+    .form-field {
+      flex: 1;
+    }
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .file-upload {
+    display: flex;
+    justify-content: flex-end;
+
+    .file-button {
+      margin-bottom: 16px;
+      background-color: #ffd700;
+    }
+  }
+}
+
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+
+  label {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  input[type="file"] {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 8px;
+    border-radius: 4px;
+  }
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.boton1,
+.boton2 {
+  padding: 4px 20px;
+}
+
+.boton1 {
+  background-color: rgba(140, 134, 134, 0.2);
+}
+
+.boton2 {
+  background-color: #009fb7;
+  color: white;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(140, 134, 134);
+}

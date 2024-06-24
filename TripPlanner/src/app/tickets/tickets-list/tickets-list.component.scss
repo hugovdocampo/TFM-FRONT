@@ -70,6 +70,15 @@
   font-weight: bold;
 }
 
+.add-travel-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #009fb7;
+  color: white;
+}
+
+
 @media screen and (max-width: 600px) {
   .foto {
     margin-top: 2vw;
