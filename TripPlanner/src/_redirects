@@ -1,0 +1,7 @@
+/planes/* https://tripplanner-back.onrender.com/planes/:splat 200
+/viajes/* https://tripplanner-back.onrender.com/viajes/:splat 200
+/usuarios/* https://tripplanner-back.onrender.com/usuarios/:splat 200
+/auth/* https://tripplanner-back.onrender.com/auth/:splat 200
+/imagenes/* https://tripplanner-back.onrender.com/imagenes/:splat 200
+/tickets/* https://tripplanner-back.onrender.com/tickets/:splat 200
+/pagos/* https://tripplanner-back.onrender.com/pagos/:splat 200
