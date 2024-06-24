@@ -42,7 +42,7 @@ export class ImageApiControllerService {
     id: string,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/imagenes/${id}`, options);
+    return this.http.get<TData>(`/api/imagenes/${id}`, options);
   }
 }
 

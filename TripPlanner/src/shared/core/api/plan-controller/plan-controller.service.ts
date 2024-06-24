@@ -47,35 +47,35 @@ export class PlanControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/planes/${id}`, options);
+    return this.http.get<TData>(`/api/planes/${id}`, options);
   }
   updatePlan<TData = void>(
     id: number,
     planDto: PlanDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/planes/${id}`, planDto, options);
+    return this.http.put<TData>(`/api/planes/${id}`, planDto, options);
   }
   deletePlan<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/planes/${id}`, options);
+    return this.http.delete<TData>(`/api/planes/${id}`, options);
   }
   getPlanes<TData = PlanDto[]>(options?: HttpClientOptions): Observable<TData> {
-    return this.http.get<TData>(`/planes`, options);
+    return this.http.get<TData>(`/api/planes`, options);
   }
   createPlan<TData = number>(
     planDto: PlanDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/planes`, planDto, options);
+    return this.http.post<TData>(`/api/planes`, planDto, options);
   }
   findPlanesByIdViaje<TData = PlanDetalleDto[]>(
     params: FindPlanesByIdViajeParams,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/planes/search`, {
+    return this.http.get<TData>(`/api/planes/search`, {
       ...options,
       params: { ...params, ...options?.params },
     });

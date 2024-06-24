@@ -43,31 +43,35 @@ export class UbicacionControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/ubicaciones/${id}`, options);
+    return this.http.get<TData>(`/api/ubicaciones/${id}`, options);
   }
   updateUbicacion<TData = void>(
     id: number,
     ubicacionDto: UbicacionDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/ubicaciones/${id}`, ubicacionDto, options);
+    return this.http.put<TData>(
+      `/api/ubicaciones/${id}`,
+      ubicacionDto,
+      options,
+    );
   }
   deleteUbicacion<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/ubicaciones/${id}`, options);
+    return this.http.delete<TData>(`/api/ubicaciones/${id}`, options);
   }
   getUbicaciones<TData = UbicacionDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/ubicaciones`, options);
+    return this.http.get<TData>(`/api/ubicaciones`, options);
   }
   createUbicacion<TData = number>(
     ubicacionDto: UbicacionDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/ubicaciones`, ubicacionDto, options);
+    return this.http.post<TData>(`/api/ubicaciones`, ubicacionDto, options);
   }
 }
 

@@ -43,37 +43,37 @@ export class TicketControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/tickets/${id}`, options);
+    return this.http.get<TData>(`/api/tickets/${id}`, options);
   }
   updateTicket<TData = void>(
     id: number,
     ticketDto: TicketDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/tickets/${id}`, ticketDto, options);
+    return this.http.put<TData>(`/api/tickets/${id}`, ticketDto, options);
   }
   deleteTicket<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/tickets/${id}`, options);
+    return this.http.delete<TData>(`/api/tickets/${id}`, options);
   }
   getTickets<TData = TicketDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/tickets`, options);
+    return this.http.get<TData>(`/api/tickets`, options);
   }
   createTicket<TData = number>(
     ticketRequest: TicketRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/tickets`, ticketRequest, options);
+    return this.http.post<TData>(`/api/tickets`, ticketRequest, options);
   }
   getTicketsByViaje<TData = TicketDto[]>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/tickets/viaje/${id}`, options);
+    return this.http.get<TData>(`/api/tickets/viaje/${id}`, options);
   }
 }
 

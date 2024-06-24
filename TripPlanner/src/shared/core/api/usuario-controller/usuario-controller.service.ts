@@ -47,43 +47,43 @@ export class UsuarioControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/usuarios/${id}`, options);
+    return this.http.get<TData>(`/api/usuarios/${id}`, options);
   }
   updateUsuario<TData = void>(
     id: number,
     usuarioDto: UsuarioDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/usuarios/${id}`, usuarioDto, options);
+    return this.http.put<TData>(`/api/usuarios/${id}`, usuarioDto, options);
   }
   deleteUsuario<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/usuarios/${id}`, options);
+    return this.http.delete<TData>(`/api/usuarios/${id}`, options);
   }
   getUsuarios<TData = UsuarioDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/usuarios`, options);
+    return this.http.get<TData>(`/api/usuarios`, options);
   }
   createUsuario<TData = number>(
     usuarioDto: UsuarioDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/usuarios`, usuarioDto, options);
+    return this.http.post<TData>(`/api/usuarios`, usuarioDto, options);
   }
   getUsuariosByIdViaje<TData = UsuarioDto[]>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/usuarios/viaje/${id}`, options);
+    return this.http.get<TData>(`/api/usuarios/viaje/${id}`, options);
   }
   findUsuarios<TData = UsuarioDetalle[]>(
     params: FindUsuariosParams,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/usuarios/search`, {
+    return this.http.get<TData>(`/api/usuarios/search`, {
       ...options,
       params: { ...params, ...options?.params },
     });
@@ -93,7 +93,7 @@ export class UsuarioControllerService {
     options?: HttpClientOptions,
   ): Observable<TData> {
     return this.http.get<TData>(
-      `/usuarios/findUsuarioByEmail/${email}`,
+      `/api/usuarios/findUsuarioByEmail/${email}`,
       options,
     );
   }

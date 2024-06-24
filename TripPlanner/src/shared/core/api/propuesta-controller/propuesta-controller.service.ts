@@ -43,31 +43,31 @@ export class PropuestaControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/propuestas/${id}`, options);
+    return this.http.get<TData>(`/api/propuestas/${id}`, options);
   }
   updatePropuesta<TData = void>(
     id: number,
     propuestaDto: PropuestaDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/propuestas/${id}`, propuestaDto, options);
+    return this.http.put<TData>(`/api/propuestas/${id}`, propuestaDto, options);
   }
   deletePropuesta<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/propuestas/${id}`, options);
+    return this.http.delete<TData>(`/api/propuestas/${id}`, options);
   }
   getPropuestas<TData = PropuestaDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/propuestas`, options);
+    return this.http.get<TData>(`/api/propuestas`, options);
   }
   createPropuesta<TData = number>(
     propuestaDto: PropuestaDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/propuestas`, propuestaDto, options);
+    return this.http.post<TData>(`/api/propuestas`, propuestaDto, options);
   }
 }
 

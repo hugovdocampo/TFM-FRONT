@@ -43,37 +43,37 @@ export class ViajeControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/viajes/${id}`, options);
+    return this.http.get<TData>(`/api/viajes/${id}`, options);
   }
   updateViaje<TData = void>(
     id: number,
     viajeRequest: ViajeRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/viajes/${id}`, viajeRequest, options);
+    return this.http.put<TData>(`/api/viajes/${id}`, viajeRequest, options);
   }
   deleteViaje<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/viajes/${id}`, options);
+    return this.http.delete<TData>(`/api/viajes/${id}`, options);
   }
   getViajes<TData = ViajeDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/viajes`, options);
+    return this.http.get<TData>(`/api/viajes`, options);
   }
   createViaje<TData = number>(
     viajeRequest: ViajeRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/viajes`, viajeRequest, options);
+    return this.http.post<TData>(`/api/viajes`, viajeRequest, options);
   }
   findViajesByUserId<TData = ViajeDto[]>(
     idUsuario: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/viajes/usuario/${idUsuario}`, options);
+    return this.http.get<TData>(`/api/viajes/usuario/${idUsuario}`, options);
   }
 }
 

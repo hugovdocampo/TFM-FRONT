@@ -43,31 +43,31 @@ export class HorarioControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/horarios/${id}`, options);
+    return this.http.get<TData>(`/api/horarios/${id}`, options);
   }
   updateHorario<TData = void>(
     id: number,
     horarioDto: HorarioDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/horarios/${id}`, horarioDto, options);
+    return this.http.put<TData>(`/api/horarios/${id}`, horarioDto, options);
   }
   deleteHorario<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/horarios/${id}`, options);
+    return this.http.delete<TData>(`/api/horarios/${id}`, options);
   }
   getHorarios<TData = HorarioDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/horarios`, options);
+    return this.http.get<TData>(`/api/horarios`, options);
   }
   createHorario<TData = number>(
     horarioDto: HorarioDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/horarios`, horarioDto, options);
+    return this.http.post<TData>(`/api/horarios`, horarioDto, options);
   }
 }
 

@@ -1,37 +1,7 @@
 {
-  "/planes": {
+  "/api": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
-  },
-  "/viajes": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/usuarios": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/auth": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/imagenes": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/tickets": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/pagos": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true
-  },
+  }
 }

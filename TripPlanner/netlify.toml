@@ -1,48 +1,6 @@
 [[redirects]]
-  from = "/planes/*"
-  to = "https://tripplanner-back.onrender.com/planes/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/viajes/*"
-  to = "https://tripplanner-back.onrender.com/viajes/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/viajes"
-  to = "https://tripplanner-back.onrender.com/viajes"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/usuarios/*"
-  to = "https://tripplanner-back.onrender.com/usuarios/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/auth/*"
-  to = "https://tripplanner-back.onrender.com/auth/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/imagenes/*"
-  to = "https://tripplanner-back.onrender.com/imagenes/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/tickets/*"
-  to = "https://tripplanner-back.onrender.com/tickets/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/pagos/*"
-  to = "https://tripplanner-back.onrender.com/pagos/:splat"
+  from = "/api/*"
+  to = "https://tripplanner-back.onrender.com/api/:splat"
   status = 200
   force = true
 

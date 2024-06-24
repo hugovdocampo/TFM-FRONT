@@ -48,13 +48,13 @@ export class AuthenticationControllerService {
     registerUserDto: RegisterUserDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/auth/signup`, registerUserDto, options);
+    return this.http.post<TData>(`/api/auth/signup`, registerUserDto, options);
   }
   authenticate<TData = LoginResponse>(
     loginUserDto: LoginUserDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/auth/login`, loginUserDto, options);
+    return this.http.post<TData>(`/api/auth/login`, loginUserDto, options);
   }
 }
 

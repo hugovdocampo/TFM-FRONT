@@ -43,37 +43,37 @@ export class PagoControllerService {
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/pagos/${id}`, options);
+    return this.http.get<TData>(`/api/pagos/${id}`, options);
   }
   updatePago<TData = void>(
     id: number,
     pagoDto: PagoDto,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.put<TData>(`/pagos/${id}`, pagoDto, options);
+    return this.http.put<TData>(`/api/pagos/${id}`, pagoDto, options);
   }
   deletePago<TData = void>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.delete<TData>(`/pagos/${id}`, options);
+    return this.http.delete<TData>(`/api/pagos/${id}`, options);
   }
   getPagos<TData = PagoDetalleDto[]>(
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/pagos`, options);
+    return this.http.get<TData>(`/api/pagos`, options);
   }
   createPago<TData = number>(
     pagoRequest: PagoRequest,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.post<TData>(`/pagos`, pagoRequest, options);
+    return this.http.post<TData>(`/api/pagos`, pagoRequest, options);
   }
   getPagosByIdViaje<TData = PagoDetalleDto[]>(
     id: number,
     options?: HttpClientOptions,
   ): Observable<TData> {
-    return this.http.get<TData>(`/pagos/usuario/${id}`, options);
+    return this.http.get<TData>(`/api/pagos/usuario/${id}`, options);
   }
 }
 
